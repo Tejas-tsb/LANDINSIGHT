@@ -34,15 +34,7 @@ export default function MLModelInsights() {
   const { data, isLoading, error, reload } = useData();
   const [selectedModelFilter, setSelectedModelFilter] = useState<'All' | 'Model A' | 'Model B' | 'Model C'>('All');
 
-  if (isLoading) {
-    return <LoadingState message="Loading ML model evaluation metrics..." />;
-  }
-
-  if (error || !data) {
-    return <ErrorState message={error || 'Failed to load data.'} onRetry={reload} />;
-  }
-
-  const { modelMetrics } = data;
+  const modelMetrics = data?.modelMetrics ?? [];
 
   // Selected config
   const selectedConfig = modelMetrics.find(
@@ -70,6 +62,14 @@ export default function MLModelInsights() {
       };
     });
   }, [modelMetrics]);
+
+  if (isLoading) {
+    return <LoadingState message="Loading ML model evaluation metrics..." />;
+  }
+
+  if (error || !data) {
+    return <ErrorState message={error || 'Failed to load data.'} onRetry={reload} />;
+  }
 
   return (
     <div className="space-y-6">

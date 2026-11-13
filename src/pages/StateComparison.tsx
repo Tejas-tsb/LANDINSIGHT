@@ -41,15 +41,7 @@ export default function StateComparison() {
   ]);
   const [activeTab, setActiveTab] = useState<'percentage' | 'binary'>('percentage');
 
-  if (isLoading) {
-    return <LoadingState message="Loading state comparison engine..." />;
-  }
-
-  if (error || !data) {
-    return <ErrorState message={error || 'Failed to load data.'} onRetry={reload} />;
-  }
-
-  const { enrichedStates } = data;
+  const enrichedStates = data?.enrichedStates ?? [];
 
   // Selected state objects
   const selectedStateObjects = useMemo(() => {
@@ -90,7 +82,15 @@ export default function StateComparison() {
       });
       return entry;
     });
-  }, [PERCENTAGE_INDICATORS, selectedStateObjects]);
+  }, [selectedStateObjects]);
+
+  if (isLoading) {
+    return <LoadingState message="Loading state comparison engine..." />;
+  }
+
+  if (error || !data) {
+    return <ErrorState message={error || 'Failed to load data.'} onRetry={reload} />;
+  }
 
   return (
     <div className="space-y-6">

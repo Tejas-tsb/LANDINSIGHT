@@ -29,15 +29,7 @@ export default function GapAnalysis() {
   const { data, isLoading, error, reload } = useData();
   const [categoryFilter, setCategoryFilter] = useState<'all' | 'Percentage Coverage' | 'Binary Adoption'>('all');
 
-  if (isLoading) {
-    return <LoadingState message="Loading governance gap analysis..." />;
-  }
-
-  if (error || !data) {
-    return <ErrorState message={error || 'Failed to load data.'} onRetry={reload} />;
-  }
-
-  const { gapAnalysis } = data;
+  const gapAnalysis = data?.gapAnalysis ?? [];
 
   const filteredGaps = useMemo(() => {
     if (categoryFilter === 'all') return gapAnalysis;
@@ -62,6 +54,14 @@ export default function GapAnalysis() {
         };
       });
   }, [filteredGaps]);
+
+  if (isLoading) {
+    return <LoadingState message="Loading governance gap analysis..." />;
+  }
+
+  if (error || !data) {
+    return <ErrorState message={error || 'Failed to load data.'} onRetry={reload} />;
+  }
 
   const topGap = chartData[0];
 

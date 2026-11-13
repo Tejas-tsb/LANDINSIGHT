@@ -37,15 +37,8 @@ export default function StateExplorer() {
   const [selectedClusterFilter, setSelectedClusterFilter] = useState<'all' | 0 | 1>('all');
   const [selectedStateName, setSelectedStateName] = useState<string>('ANDHRA PRADESH');
 
-  if (isLoading) {
-    return <LoadingState message="Loading State/UT profiles..." />;
-  }
-
-  if (error || !data) {
-    return <ErrorState message={error || 'Failed to load data.'} onRetry={reload} />;
-  }
-
-  const { enrichedStates, clusterProfiles } = data;
+  const enrichedStates = data?.enrichedStates ?? [];
+  const clusterProfiles = data?.clusterProfiles ?? [];
 
   // Filtered state list
   const filteredStates = useMemo(() => {
@@ -66,6 +59,7 @@ export default function StateExplorer() {
   }, [enrichedStates, selectedStateName]);
 
   const activeClusterProfile = useMemo(() => {
+    if (!activeState) return undefined;
     return clusterProfiles.find((p) => p.Cluster === activeState.Cluster);
   }, [clusterProfiles, activeState]);
 
@@ -84,6 +78,14 @@ export default function StateExplorer() {
       };
     });
   }, [activeState, activeClusterProfile]);
+
+  if (isLoading) {
+    return <LoadingState message="Loading State/UT profiles..." />;
+  }
+
+  if (error || !data || !activeState) {
+    return <ErrorState message={error || 'Failed to load data.'} onRetry={reload} />;
+  }
 
   return (
     <div className="space-y-6">

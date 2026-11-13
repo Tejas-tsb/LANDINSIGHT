@@ -14,7 +14,7 @@ import { DATA_PATHS } from './constants';
  * Safely converts an incoming CSV field into a valid finite number or explicit null.
  * Strictly preserves missing/empty values as null rather than converting them to zero.
  */
-function sanitizeNullableNumber(val: unknown): number | null {
+export function sanitizeNullableNumber(val: unknown): number | null {
   if (val === null || val === undefined || val === '') {
     return null;
   }
@@ -32,7 +32,7 @@ function sanitizeNullableNumber(val: unknown): number | null {
 /**
  * Generic PapaParse CSV fetcher and parser with robust error handling.
  */
-async function fetchAndParseCSV<T>(
+export async function fetchAndParseCSV<T>(
   url: string,
   transformHeader?: (header: string) => string
 ): Promise<T[]> {
@@ -69,7 +69,7 @@ async function fetchAndParseCSV<T>(
 /**
  * Validates that an array of records contains all required columns.
  */
-function validateColumns(records: Record<string, unknown>[], requiredCols: string[], sourceName: string) {
+export function validateColumns(records: Record<string, unknown>[], requiredCols: string[], sourceName: string) {
   if (!records || records.length === 0) {
     throw new Error(`Data Integrity Error: Empty dataset received from ${sourceName}`);
   }
@@ -84,7 +84,7 @@ function validateColumns(records: Record<string, unknown>[], requiredCols: strin
  * Validates uniqueness of State/UT identifiers in a dataset and returns a sanitized Map.
  * Throws a descriptive Data Integrity Error if duplicate or empty identifiers are found.
  */
-function validateUniqueStateIdentifiers<T extends { State_UT?: string }>(
+export function validateUniqueStateIdentifiers<T extends { State_UT?: string }>(
   records: T[],
   sourceName: string
 ): Map<string, T> {

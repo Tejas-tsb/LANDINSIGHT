@@ -30,15 +30,8 @@ export default function IndicatorAnalytics() {
   const [activeIndicatorKey, setActiveIndicatorKey] = useState<string>('Map_Digitization_Pct');
   const [sortOrder, setSortOrder] = useState<'desc' | 'asc'>('desc');
 
-  if (isLoading) {
-    return <LoadingState message="Loading indicator analytics..." />;
-  }
-
-  if (error || !data) {
-    return <ErrorState message={error || 'Failed to load data.'} onRetry={reload} />;
-  }
-
-  const { enrichedStates, clusterProfiles } = data;
+  const enrichedStates = data?.enrichedStates ?? [];
+  const clusterProfiles = data?.clusterProfiles ?? [];
 
   // Filter indicators by category
   const filteredIndicatorKeys = useMemo(() => {
@@ -107,6 +100,14 @@ export default function IndicatorAnalytics() {
       c1Mean,
     };
   }, [chartData, clusterProfiles, activeIndicatorKey]);
+
+  if (isLoading) {
+    return <LoadingState message="Loading indicator analytics..." />;
+  }
+
+  if (error || !data) {
+    return <ErrorState message={error || 'Failed to load data.'} onRetry={reload} />;
+  }
 
   return (
     <div className="space-y-6">

@@ -62,6 +62,8 @@ const GEOJSON_TO_CSV_NAME: Record<string, string> = {
   'Uttarakhand': 'UTTARAKHAND',
   'West Bengal': 'WEST BENGAL',
 };
+const MAP_CENTER: [number, number] = [22.5, 82.5];
+const MAP_ZOOM = 4.4;
 
 // Component to handle map view reset
 function MapController({ center, zoom }: { center: [number, number]; zoom: number }) {
@@ -82,8 +84,6 @@ export default function GovernanceMap() {
   const [filterCluster, setFilterCluster] = useState<'all' | 0 | 1>('all');
   const [hoveredStateName, setHoveredStateName] = useState<string | null>(null);
 
-  const mapCenter: [number, number] = [22.5, 82.5];
-  const mapZoom = 4.4;
 
   // Load GeoJSON boundaries
   useEffect(() => {
@@ -310,17 +310,17 @@ export default function GovernanceMap() {
           </div>
 
           <MapContainer
-            center={mapCenter}
-            zoom={mapZoom}
+            center={MAP_CENTER}
+            zoom={MAP_ZOOM}
             minZoom={3.8}
             maxZoom={8}
-            style={{ width: '100%', height: '100%', backgroundColor: '#F8FAFC' }}
+            style={{ width: '100%', height: '100%', backgroundColor: 'var(--color-surface-secondary)' }}
             scrollWheelZoom={true}
           >
-            <MapController center={mapCenter} zoom={mapZoom} />
+            <MapController center={MAP_CENTER} zoom={MAP_ZOOM} />
             <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attributions">CARTO</a>'
+              url={`https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png?key=${import.meta.env.VITE_CARTO_API_KEY}`}
             />
             {geoData && (
               <GeoJSON

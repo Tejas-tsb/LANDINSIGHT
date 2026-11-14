@@ -260,11 +260,11 @@ export default function ClusterIntelligence() {
                     <td className="py-2.5 px-4 text-right font-mono font-medium">
                       <span className={isPositive ? 'text-emerald-600' : 'text-amber-600'}>
                         {isPositive ? '+' : ''}
-                        {row.Difference_C1_minus_C0.toFixed(1)}%
+                        {row.Difference_C1_minus_C0.toFixed(1)} pp
                       </span>
                     </td>
                     <td className="py-2.5 px-4 text-right font-mono font-semibold text-[var(--color-text-primary)]">
-                      {row.Absolute_Gap.toFixed(1)}%
+                      {row.Absolute_Gap.toFixed(1)} pp
                     </td>
                   </tr>
                 );

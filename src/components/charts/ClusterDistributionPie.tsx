@@ -1,5 +1,5 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
-import { CLUSTER_CONFIG } from '../../lib/constants';
+import { CLUSTER_CONFIG, RECHARTS_TOOLTIP_PROPS } from '../../lib/constants';
 
 interface ClusterDistributionPieProps {
   cluster0Count: number;
@@ -51,13 +51,7 @@ export function ClusterDistributionPie({
               }%)`,
               name as string,
             ]}
-            contentStyle={{
-              backgroundColor: 'var(--color-surface)',
-              borderColor: 'var(--color-border)',
-              borderRadius: '0.5rem',
-              color: 'var(--color-text-primary)',
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-            }}
+            {...RECHARTS_TOOLTIP_PROPS}
           />
           <Legend
             verticalAlign="bottom"

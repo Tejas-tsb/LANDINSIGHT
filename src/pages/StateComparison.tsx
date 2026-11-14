@@ -9,6 +9,7 @@ import {
   PERCENTAGE_INDICATORS,
   BINARY_INDICATORS,
   CLUSTER_CONFIG,
+  RECHARTS_TOOLTIP_PROPS,
 } from '../lib/constants';
 import { toTitleCase, formatPercent, formatBinary } from '../lib/utils';
 import {
@@ -235,12 +236,7 @@ export default function StateComparison() {
                   formatter={(val: unknown) => [
                     val === null || val === undefined ? 'Unavailable (N/A)' : `${Number(val).toFixed(1)}%`,
                   ]}
-                  contentStyle={{
-                    backgroundColor: 'var(--color-surface)',
-                    borderColor: 'var(--color-border)',
-                    borderRadius: '0.5rem',
-                    color: 'var(--color-text-primary)',
-                  }}
+                  {...RECHARTS_TOOLTIP_PROPS}
                 />
                 <Legend verticalAlign="top" align="right" wrapperStyle={{ paddingBottom: '10px' }} />
                 {selectedStateObjects.map((state, idx) => (

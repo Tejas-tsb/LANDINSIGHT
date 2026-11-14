@@ -8,6 +8,7 @@ import {
   SELECTED_MODEL,
   SELECTED_K,
   ASSET_PATHS,
+  RECHARTS_TOOLTIP_PROPS,
 } from '../lib/constants';
 import {
   Brain,
@@ -185,14 +186,9 @@ export default function MLModelInsights() {
                   <XAxis dataKey="k" tick={{ fill: 'var(--color-text-secondary)', fontSize: 11 }} />
                   <YAxis domain={[0.2, 0.45]} tick={{ fill: 'var(--color-text-secondary)', fontSize: 11 }} />
                   <Tooltip
-                    contentStyle={{
-                      backgroundColor: 'var(--color-surface)',
-                      borderColor: 'var(--color-border)',
-                      borderRadius: '0.5rem',
-                      fontSize: '11px',
-                    }}
+                    {...RECHARTS_TOOLTIP_PROPS}
                   />
-                  <Legend verticalAlign="top" align="right" />
+                  <Legend verticalAlign="top" align="right" wrapperStyle={{ paddingBottom: '10px' }} />
                   <Line type="monotone" dataKey="ModelA_Sil" name="Model A (14)" stroke="#94A3B8" strokeWidth={1.5} />
                   <Line type="monotone" dataKey="ModelB_Sil" name="Model B (12)" stroke="#D97706" strokeWidth={1.5} />
                   <Line type="monotone" dataKey="ModelC_Sil" name="Model C (13)" stroke="#2563EB" strokeWidth={2.5} dot={{ r: 4 }} />
@@ -220,14 +216,9 @@ export default function MLModelInsights() {
                   <XAxis dataKey="k" tick={{ fill: 'var(--color-text-secondary)', fontSize: 11 }} />
                   <YAxis domain={[0.9, 1.7]} tick={{ fill: 'var(--color-text-secondary)', fontSize: 11 }} />
                   <Tooltip
-                    contentStyle={{
-                      backgroundColor: 'var(--color-surface)',
-                      borderColor: 'var(--color-border)',
-                      borderRadius: '0.5rem',
-                      fontSize: '11px',
-                    }}
+                    {...RECHARTS_TOOLTIP_PROPS}
                   />
-                  <Legend verticalAlign="top" align="right" />
+                  <Legend verticalAlign="top" align="right" wrapperStyle={{ paddingBottom: '10px' }} />
                   <Line type="monotone" dataKey="ModelA_DBI" name="Model A (14)" stroke="#94A3B8" strokeWidth={1.5} />
                   <Line type="monotone" dataKey="ModelB_DBI" name="Model B (12)" stroke="#D97706" strokeWidth={1.5} />
                   <Line type="monotone" dataKey="ModelC_DBI" name="Model C (13)" stroke="#2563EB" strokeWidth={2.5} dot={{ r: 4 }} />
@@ -250,12 +241,27 @@ export default function MLModelInsights() {
         </div>
         <div className="card-body grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           {/* PCA Image Asset */}
-          <div className="lg:col-span-8 rounded-lg overflow-hidden border border-[var(--color-border)] bg-white p-2">
-            <img
-              src={ASSET_PATHS.pcaVisualization}
-              alt="PCA Cluster Visualization of Digital Land Governance"
-              className="w-full h-auto object-contain rounded"
-            />
+          <div className="lg:col-span-8 rounded-lg overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface-secondary)] p-3 shadow-inner flex flex-col items-center">
+            <div className="w-full flex items-center justify-between pb-2 mb-2 border-b border-[var(--color-border)] text-xs text-[var(--color-text-secondary)]">
+              <span className="font-semibold text-[var(--color-text-primary)]">2D Orthogonal Projection</span>
+              <div className="flex items-center gap-3">
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#2563EB]" />
+                  <span>Cluster 0 (7)</span>
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]" />
+                  <span>Cluster 1 (29)</span>
+                </span>
+              </div>
+            </div>
+            <div className="w-full bg-slate-900/60 dark:bg-slate-950/80 rounded border border-[var(--color-border)] p-1.5 flex justify-center">
+              <img
+                src={ASSET_PATHS.pcaVisualization}
+                alt="PCA Cluster Visualization of Digital Land Governance"
+                className="w-full h-auto max-h-[480px] object-contain rounded brightness-[0.96] contrast-[1.04]"
+              />
+            </div>
           </div>
 
           {/* Technical Explanation Sidebar */}

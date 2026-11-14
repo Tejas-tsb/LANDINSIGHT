@@ -23,14 +23,14 @@
   }
 
   .dark {
-    --color-surface: #0f172a;
-    --color-surface-secondary: #1e293b;
-    --color-surface-tertiary: #334155;
+    --color-surface: #111c2e;
+    --color-surface-secondary: #0b1220;
+    --color-surface-tertiary: #1e293b;
     --color-border: #334155;
     --color-border-strong: #475569;
     --color-text-primary: #f1f5f9;
-    --color-text-secondary: #94a3b8;
-    --color-text-tertiary: #64748b;
+    --color-text-secondary: #cbd5e1;
+    --color-text-tertiary: #94a3b8;
     --color-text-inverse: #0f172a;
     --color-accent: #3B82F6;
     --color-accent-hover: #60A5FA;

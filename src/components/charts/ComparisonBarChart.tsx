@@ -8,7 +8,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { CLUSTER_CONFIG } from '../../lib/constants';
+import { CLUSTER_CONFIG, RECHARTS_TOOLTIP_PROPS } from '../../lib/constants';
 
 export interface ComparisonBarData {
   indicator: string;
@@ -60,12 +60,7 @@ export function ComparisonBarChart({
             />
             <Tooltip
               formatter={tooltipFormatter}
-              contentStyle={{
-                backgroundColor: 'var(--color-surface)',
-                borderColor: 'var(--color-border)',
-                borderRadius: '0.5rem',
-                color: 'var(--color-text-primary)',
-              }}
+              {...RECHARTS_TOOLTIP_PROPS}
             />
             <Legend
               verticalAlign="top"
@@ -115,12 +110,7 @@ export function ComparisonBarChart({
           />
           <Tooltip
             formatter={tooltipFormatter}
-            contentStyle={{
-              backgroundColor: 'var(--color-surface)',
-              borderColor: 'var(--color-border)',
-              borderRadius: '0.5rem',
-              color: 'var(--color-text-primary)',
-            }}
+            {...RECHARTS_TOOLTIP_PROPS}
           />
           <Legend
             verticalAlign="top"

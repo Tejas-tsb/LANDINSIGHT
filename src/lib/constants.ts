@@ -221,6 +221,31 @@ export const MODEL_DESCRIPTIONS: Record<string, { name: string; label: string; d
 export const SELECTED_MODEL = 'Model C';
 export const SELECTED_K = 2;
 
+/** Unified tooltip properties for Recharts across light and dark themes */
+export const RECHARTS_TOOLTIP_PROPS = {
+  contentStyle: {
+    backgroundColor: 'var(--color-surface)',
+    borderColor: 'var(--color-border)',
+    borderRadius: '0.5rem',
+    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.2)',
+    color: 'var(--color-text-primary)',
+    fontSize: '0.75rem',
+    padding: '8px 12px',
+  },
+  itemStyle: {
+    color: 'var(--color-text-primary)',
+    fontSize: '0.75rem',
+    padding: '2px 0',
+  },
+  labelStyle: {
+    color: 'var(--color-text-primary)',
+    fontWeight: 600,
+    fontSize: '0.75rem',
+    marginBottom: '4px',
+  },
+  cursor: false,
+} as const;
+
 /** CSV file paths */
 export const DATA_PATHS = {
   governance: '/data/Cleaned_Digital_Land_Governance.csv',

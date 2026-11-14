@@ -8,6 +8,7 @@ import {
   PERCENTAGE_INDICATORS,
   BINARY_INDICATORS,
   CLUSTER_CONFIG,
+  RECHARTS_TOOLTIP_PROPS,
 } from '../lib/constants';
 import { toTitleCase, formatPercent, formatBinary } from '../lib/utils';
 import {
@@ -254,12 +255,7 @@ export default function StateExplorer() {
                       fillOpacity={0.2}
                     />
                     <RechartsTooltip
-                      contentStyle={{
-                        backgroundColor: 'var(--color-surface)',
-                        borderColor: 'var(--color-border)',
-                        borderRadius: '0.5rem',
-                        fontSize: '11px',
-                      }}
+                      {...RECHARTS_TOOLTIP_PROPS}
                     />
                   </RadarChart>
                 </ResponsiveContainer>

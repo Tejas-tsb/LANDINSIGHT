@@ -5,6 +5,7 @@ import { ErrorState } from '../components/ui/ErrorState';
 import {
   INDICATOR_METADATA,
   CLUSTER_CONFIG,
+  RECHARTS_TOOLTIP_PROPS,
 } from '../lib/constants';
 import {
   BarChart,
@@ -105,7 +106,7 @@ export default function GapAnalysis() {
               </h2>
               <p className="text-xs text-[var(--color-text-secondary)] mt-1">
                 Cluster 1 leads Cluster 0 by an absolute gap of{' '}
-                <strong className="text-blue-600 font-mono">{topGap.gap}%</strong> (Cluster 1:{' '}
+                <strong className="text-blue-600 font-mono">{topGap.gap} pp</strong> (Cluster 1:{' '}
                 {topGap.c1Mean}% vs Cluster 0: {topGap.c0Mean}%).
               </p>
             </div>
@@ -187,7 +188,7 @@ export default function GapAnalysis() {
                   type="number"
                   domain={[0, 90]}
                   tick={{ fill: 'var(--color-text-secondary)', fontSize: 11 }}
-                  tickFormatter={(v) => `${v}%`}
+                  tickFormatter={(v) => `${v} pp`}
                 />
                 <YAxis
                   type="category"
@@ -199,16 +200,11 @@ export default function GapAnalysis() {
                   formatter={(value: unknown, _name: unknown, entry: { payload?: { c0Mean: number; c1Mean: number; category: string } }) => {
                     const p = entry.payload;
                     return [
-                      `${value}% gap (C1: ${p?.c1Mean}% vs C0: ${p?.c0Mean}%)`,
+                      `${value} pp gap (C1: ${p?.c1Mean}% vs C0: ${p?.c0Mean}%)`,
                       `Category: ${p?.category}`,
                     ];
                   }}
-                  contentStyle={{
-                    backgroundColor: 'var(--color-surface)',
-                    borderColor: 'var(--color-border)',
-                    borderRadius: '0.5rem',
-                    color: 'var(--color-text-primary)',
-                  }}
+                  {...RECHARTS_TOOLTIP_PROPS}
                 />
                 <Bar dataKey="gap" radius={[0, 4, 4, 0]} barSize={16}>
                   {chartData.map((entry, index) => (
@@ -277,11 +273,11 @@ export default function GapAnalysis() {
                     <td className="py-2.5 px-4 text-right font-mono font-medium">
                       <span className={row.Difference_C1_minus_C0 >= 0 ? 'text-emerald-600' : 'text-amber-600'}>
                         {row.Difference_C1_minus_C0 >= 0 ? '+' : ''}
-                        {row.Difference_C1_minus_C0.toFixed(2)}%
+                        {row.Difference_C1_minus_C0.toFixed(2)} pp
                       </span>
                     </td>
                     <td className="py-2.5 px-4 text-right font-mono font-bold text-[var(--color-text-primary)]">
-                      {row.Absolute_Gap.toFixed(2)}%
+                      {row.Absolute_Gap.toFixed(2)} pp
                     </td>
                   </tr>
                 );

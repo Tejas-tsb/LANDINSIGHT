@@ -10,6 +10,7 @@ import {
   PERCENTAGE_INDICATORS,
   BINARY_INDICATORS,
   CLUSTER_CONFIG,
+  RECHARTS_TOOLTIP_PROPS,
 } from '../lib/constants';
 import { toTitleCase, mean } from '../lib/utils';
 import {
@@ -275,22 +276,26 @@ export default function IndicatorAnalytics() {
         </div>
 
         <div className="card-body">
-          <div className="w-full h-80">
+          <div className="w-full" style={{ height: '880px' }}>
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={chartData} margin={{ top: 10, right: 10, left: -10, bottom: 65 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" vertical={false} />
+              <BarChart
+                data={chartData}
+                layout="vertical"
+                margin={{ top: 10, right: 30, left: 10, bottom: 20 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" horizontal={false} />
                 <XAxis
-                  dataKey="name"
-                  angle={-45}
-                  textAnchor="end"
-                  interval={0}
-                  height={80}
-                  tick={{ fill: 'var(--color-text-secondary)', fontSize: 10 }}
-                />
-                <YAxis
+                  type="number"
                   domain={activeMeta.category === 'percentage' ? [0, 100] : [0, 1]}
                   tick={{ fill: 'var(--color-text-secondary)', fontSize: 11 }}
                   tickFormatter={(v) => (activeMeta.category === 'percentage' ? `${v}%` : `${v}`)}
+                />
+                <YAxis
+                  type="category"
+                  dataKey="name"
+                  interval={0}
+                  width={170}
+                  tick={{ fill: 'var(--color-text-primary)', fontSize: 11 }}
                 />
                 <Tooltip
                   formatter={(value: unknown, _name: unknown, entry: { payload?: { cluster: number } }) => {
@@ -307,14 +312,9 @@ export default function IndicatorAnalytics() {
                         : '0 (Not Adopted)';
                     return [formatted, `${activeMeta.shortLabel} (${cLabel})`];
                   }}
-                  contentStyle={{
-                    backgroundColor: 'var(--color-surface)',
-                    borderColor: 'var(--color-border)',
-                    borderRadius: '0.5rem',
-                    color: 'var(--color-text-primary)',
-                  }}
+                  {...RECHARTS_TOOLTIP_PROPS}
                 />
-                <Bar dataKey="value" radius={[3, 3, 0, 0]}>
+                <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={14}>
                   {chartData.map((entry, index) => (
                     <Cell
                       key={`cell-${index}`}

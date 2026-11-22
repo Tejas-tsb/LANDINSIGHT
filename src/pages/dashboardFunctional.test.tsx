@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { ClusterExplorerProvider } from '../lib/clusterExplorerContext';
 import React from 'react';
 import '@testing-library/jest-dom/vitest';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
@@ -48,8 +49,9 @@ function renderWithContext(
   { initialEntries = ['/'] }: { initialEntries?: string[] } = {}
 ) {
   return render(
-    <ThemeProvider>
-      <DataProvider>
+  <ThemeProvider>
+    <DataProvider>
+      <ClusterExplorerProvider>
         <MemoryRouter initialEntries={initialEntries}>
           <Routes>
             <Route element={<AppLayout />}>
@@ -65,9 +67,10 @@ function renderWithContext(
             </Route>
           </Routes>
         </MemoryRouter>
-      </DataProvider>
-    </ThemeProvider>
-  );
+      </ClusterExplorerProvider>
+    </DataProvider>
+  </ThemeProvider>
+);
 }
 
 describe('Dashboard Functional Testing — All 9 Pages & Interactive Elements', () => {
@@ -308,7 +311,9 @@ describe('Dashboard Functional Testing — All 9 Pages & Interactive Elements', 
       expect(screen.getAllByText('Nagaland').length).toBeGreaterThanOrEqual(1);
 
       // Add a third state from dropdown
-      const select = screen.getByRole('combobox');
+      const select = screen.getByRole('combobox', {
+  name: 'Add State/UT to comparison',
+});
       fireEvent.change(select, { target: { value: 'BIHAR' } });
       expect(screen.getAllByText('Bihar').length).toBeGreaterThanOrEqual(1);
 

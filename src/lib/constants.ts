@@ -59,15 +59,16 @@ export const PERCENTAGE_INDICATORS: string[] = [
   'MRR_Completion_Pct_Total',
 ];
 
-/** Binary service adoption indicators (used in Model C) */
+/** Binary service adoption indicators, including the additional experimental Auto_Mutation indicator */
 export const BINARY_INDICATORS: string[] = [
   'Online_RoR_Download',
   'Digitally_Signed_RoR',
   'Online_Mutation_Application',
   'Auto_Triggered_Mutation',
+  'Auto_Mutation',
 ];
 
-/** Full indicator metadata for all 13 Model C features */
+/** Indicator metadata for all 14 experimental governance indicators */
 export const INDICATOR_METADATA: Record<string, IndicatorMeta> = {
   Map_Digitization_Pct: {
     key: 'Map_Digitization_Pct',
@@ -168,9 +169,17 @@ export const INDICATOR_METADATA: Record<string, IndicatorMeta> = {
   Auto_Triggered_Mutation: {
     key: 'Auto_Triggered_Mutation',
     label: 'Auto-Triggered Mutation',
-    shortLabel: 'Auto Mutation',
+    shortLabel: 'Auto-Triggered',
     category: 'binary',
     description: 'Whether auto-triggered mutation on registration is available',
+    unit: 'Yes/No',
+  },
+  Auto_Mutation: {
+    key: 'Auto_Mutation',
+    label: 'Auto Mutation',
+    shortLabel: 'Auto Mutation',
+    category: 'binary',
+    description: 'Whether automatic mutation service is available',
     unit: 'Yes/No',
   },
 };
@@ -193,6 +202,9 @@ export const CLUSTER_CONFIG = {
     bgColor: '#FDF6E8',
     bgColorDark: '#3D3118',
   },
+  2: { label: 'Cluster 2', displayName: 'Cluster 2', color: '#2F9D83', lightColor: '#58B99F', bgColor: '#E8F6F2', bgColorDark: '#173A32' },
+  3: { label: 'Cluster 3', displayName: 'Cluster 3', color: '#8B6CC1', lightColor: '#A78BD4', bgColor: '#F1ECF8', bgColorDark: '#302342' },
+  4: { label: 'Cluster 4', displayName: 'Cluster 4', color: '#C66B55', lightColor: '#D88C79', bgColor: '#FAEEEA', bgColorDark: '#452720' },
 } as const;
 
 /** Model descriptions */

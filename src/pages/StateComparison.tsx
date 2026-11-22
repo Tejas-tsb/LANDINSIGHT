@@ -1,24 +1,20 @@
+
 import { useState, useMemo } from 'react';
 import { useData } from '../lib/dataContext';
+import { useSelectedClusterData } from '../lib/clusterExplorerContext';
 import { LoadingState } from '../components/ui/LoadingState';
 import { ErrorState } from '../components/ui/ErrorState';
 import { ClusterBadge } from '../components/ui/ClusterBadge';
 import {
   INDICATOR_METADATA,
-  MODEL_C_FEATURES,
   PERCENTAGE_INDICATORS,
   BINARY_INDICATORS,
-  CLUSTER_CONFIG,
   RECHARTS_TOOLTIP_PROPS,
 } from '../lib/constants';
-import { toTitleCase, formatPercent, formatBinary } from '../lib/utils';
+import { toTitleCase } from '../lib/utils';
 import {
-  GitCompareArrows,
   X,
-  Plus,
-  Building,
   Check,
-  ChevronDown,
 } from 'lucide-react';
 import {
   BarChart,
@@ -35,14 +31,18 @@ const STATE_PALETTE = ['#2563EB', '#D97706', '#059669', '#7C3AED'];
 
 export default function StateComparison() {
   const { data, isLoading, error, reload } = useData();
-  // Default selected states: a representative comparison (e.g. Gujarat vs Nagaland, or Bihar vs Delhi)
+  const selected = useSelectedClusterData();
+
+  // Default selected states
   const [selectedStates, setSelectedStates] = useState<string[]>([
     'GUJARAT',
     'NAGALAND',
   ]);
+
   const [activeTab, setActiveTab] = useState<'percentage' | 'binary'>('percentage');
 
-  const enrichedStates = data?.enrichedStates ?? [];
+  // Use states enriched with the currently selected cluster configuration
+  const enrichedStates = selected.enrichedStates;
 
   // Selected state objects
   const selectedStateObjects = useMemo(() => {
@@ -74,23 +74,44 @@ export default function StateComparison() {
   const percentageChartData = useMemo(() => {
     return PERCENTAGE_INDICATORS.map((key) => {
       const meta = INDICATOR_METADATA[key];
+
       const entry: Record<string, string | number | null> = {
         indicator: meta?.shortLabel || key,
       };
+
       selectedStateObjects.forEach((st) => {
         const val = (st as unknown as Record<string, number | null>)[key];
-        entry[toTitleCase(st.State_UT)] = val !== null && val !== undefined ? val : null;
+
+        entry[toTitleCase(st.State_UT)] =
+          val !== null && val !== undefined ? val : null;
       });
+
       return entry;
     });
   }, [selectedStateObjects]);
 
-  if (isLoading) {
+  // Loading state
+  if (isLoading || selected.isExplorerLoading) {
     return <LoadingState message="Loading state comparison engine..." />;
   }
 
+  // Error state
   if (error || !data) {
-    return <ErrorState message={error || 'Failed to load data.'} onRetry={reload} />;
+    return (
+      <ErrorState
+        message={error || 'Failed to load data.'}
+        onRetry={reload}
+      />
+    );
+  }
+
+  if (selected.explorerError || !selected.config) {
+    return (
+      <ErrorState
+        message={selected.explorerError || 'Failed to load selected cluster configuration.'}
+        onRetry={reload}
+      />
+    );
   }
 
   return (
@@ -99,8 +120,10 @@ export default function StateComparison() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-[var(--color-border)]">
         <div>
           <h1 className="page-title">State / UT Multi-Entity Comparison</h1>
+
           <p className="page-subtitle">
-            Compare up to 4 States and UTs side-by-side across all 13 Model C features.
+            Compare up to 4 States and UTs side-by-side across{' '}
+            {selected.config.featureCount} {selected.config.model} features.
           </p>
         </div>
       </div>
@@ -108,7 +131,10 @@ export default function StateComparison() {
       {/* State Selector Bar */}
       <div className="card p-4 space-y-3">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-semibold text-[var(--color-text-secondary)]">Comparing:</span>
+          <span className="text-xs font-semibold text-[var(--color-text-secondary)]">
+            Comparing:
+          </span>
+
           {selectedStateObjects.map((state, index) => (
             <div
               key={state.State_UT}
@@ -123,13 +149,17 @@ export default function StateComparison() {
                 className="w-2 h-2 rounded-full"
                 style={{ backgroundColor: STATE_PALETTE[index] }}
               />
+
               <span>{toTitleCase(state.State_UT)}</span>
+
               <ClusterBadge cluster={state.Cluster} size="sm" />
+
               {selectedStates.length > 1 && (
                 <button
                   onClick={() => handleRemoveState(state.State_UT)}
                   className="hover:opacity-70 p-0.5"
                   title="Remove"
+                  aria-label={`Remove ${toTitleCase(state.State_UT)}`}
                 >
                   <X size={13} />
                 </button>
@@ -141,6 +171,7 @@ export default function StateComparison() {
           {selectedStates.length < 4 && (
             <div className="relative inline-block">
               <select
+                aria-label="Add State/UT to comparison"
                 onChange={(e) => {
                   if (e.target.value) {
                     handleAddState(e.target.value);
@@ -153,6 +184,7 @@ export default function StateComparison() {
                 <option value="" disabled>
                   + Add State/UT ({4 - selectedStates.length} remaining)
                 </option>
+
                 {availableStates.map((s) => (
                   <option key={s.State_UT} value={s.State_UT}>
                     {toTitleCase(s.State_UT)}
@@ -164,7 +196,7 @@ export default function StateComparison() {
         </div>
       </div>
 
-      {/* Context Comparison Cards (Administrative Profile) */}
+      {/* Context Comparison Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {selectedStateObjects.map((state, idx) => (
           <div
@@ -177,8 +209,10 @@ export default function StateComparison() {
                 <h3 className="text-sm font-bold text-[var(--color-text-primary)]">
                   {toTitleCase(state.State_UT)}
                 </h3>
+
                 <ClusterBadge cluster={state.Cluster} size="sm" />
               </div>
+
               <div className="space-y-1 text-xs text-[var(--color-text-secondary)]">
                 <div className="flex justify-between">
                   <span>Districts:</span>
@@ -186,16 +220,22 @@ export default function StateComparison() {
                     {state.Total_Districts}
                   </span>
                 </div>
+
                 <div className="flex justify-between">
                   <span>Villages:</span>
                   <span className="font-semibold text-[var(--color-text-primary)]">
-                    {state.Total_Villages !== null ? state.Total_Villages.toLocaleString() : 'N/A'}
+                    {state.Total_Villages !== null
+                      ? state.Total_Villages.toLocaleString()
+                      : 'N/A'}
                   </span>
                 </div>
+
                 <div className="flex justify-between">
                   <span>RoR Computerization:</span>
                   <span className="font-semibold text-blue-600">
-                    {state.RoR_Computerization_Pct !== null ? `${state.RoR_Computerization_Pct.toFixed(1)}%` : 'N/A'}
+                    {state.RoR_Computerization_Pct !== null
+                      ? `${state.RoR_Computerization_Pct.toFixed(1)}%`
+                      : 'N/A'}
                   </span>
                 </div>
               </div>
@@ -211,6 +251,7 @@ export default function StateComparison() {
             Percentage Coverage Indicators Comparison
           </h2>
         </div>
+
         <div className="card-body">
           <div className="w-full h-80">
             <ResponsiveContainer width="100%" height="100%">
@@ -218,27 +259,48 @@ export default function StateComparison() {
                 data={percentageChartData}
                 margin={{ top: 15, right: 15, left: -10, bottom: 50 }}
               >
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" vertical={false} />
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke="var(--color-border)"
+                  vertical={false}
+                />
+
                 <XAxis
                   dataKey="indicator"
                   angle={-30}
                   textAnchor="end"
                   interval={0}
                   height={65}
-                  tick={{ fill: 'var(--color-text-secondary)', fontSize: 10 }}
+                  tick={{
+                    fill: 'var(--color-text-secondary)',
+                    fontSize: 10,
+                  }}
                 />
+
                 <YAxis
                   domain={[0, 100]}
-                  tick={{ fill: 'var(--color-text-secondary)', fontSize: 11 }}
+                  tick={{
+                    fill: 'var(--color-text-secondary)',
+                    fontSize: 11,
+                  }}
                   tickFormatter={(v) => `${v}%`}
                 />
+
                 <Tooltip
                   formatter={(val: unknown) => [
-                    val === null || val === undefined ? 'Unavailable (N/A)' : `${Number(val).toFixed(1)}%`,
+                    val === null || val === undefined
+                      ? 'Unavailable (N/A)'
+                      : `${Number(val).toFixed(1)}%`,
                   ]}
                   {...RECHARTS_TOOLTIP_PROPS}
                 />
-                <Legend verticalAlign="top" align="right" wrapperStyle={{ paddingBottom: '10px' }} />
+
+                <Legend
+                  verticalAlign="top"
+                  align="right"
+                  wrapperStyle={{ paddingBottom: '10px' }}
+                />
+
                 {selectedStateObjects.map((state, idx) => (
                   <Bar
                     key={state.State_UT}
@@ -260,6 +322,7 @@ export default function StateComparison() {
           <h2 className="text-sm font-semibold text-[var(--color-text-primary)]">
             Indicator-by-Indicator Comparative Matrix
           </h2>
+
           <div className="flex gap-2">
             <button
               onClick={() => setActiveTab('percentage')}
@@ -271,6 +334,7 @@ export default function StateComparison() {
             >
               Percentage Coverage (9)
             </button>
+
             <button
               onClick={() => setActiveTab('binary')}
               className={`px-2.5 py-1 text-xs rounded font-medium ${
@@ -288,7 +352,10 @@ export default function StateComparison() {
           <table className="w-full text-left text-xs border-collapse">
             <thead>
               <tr className="border-b border-[var(--color-border)] bg-[var(--color-surface-secondary)]">
-                <th className="py-2.5 px-4 font-semibold text-[var(--color-text-primary)]">Indicator Name</th>
+                <th className="py-2.5 px-4 font-semibold text-[var(--color-text-primary)]">
+                  Indicator Name
+                </th>
+
                 {selectedStateObjects.map((state, idx) => (
                   <th
                     key={state.State_UT}
@@ -300,17 +367,26 @@ export default function StateComparison() {
                 ))}
               </tr>
             </thead>
+
             <tbody className="divide-y divide-[var(--color-border)]">
               {activeTab === 'percentage'
                 ? PERCENTAGE_INDICATORS.map((key) => {
                     const meta = INDICATOR_METADATA[key];
+
                     return (
-                      <tr key={key} className="hover:bg-[var(--color-surface-tertiary)]/50">
+                      <tr
+                        key={key}
+                        className="hover:bg-[var(--color-surface-tertiary)]/50"
+                      >
                         <td className="py-2.5 px-4 font-medium text-[var(--color-text-primary)]">
                           {meta?.label || key}
                         </td>
+
                         {selectedStateObjects.map((state) => {
-                          const val = (state as unknown as Record<string, number | null>)[key];
+                          const val = (
+                            state as unknown as Record<string, number | null>
+                          )[key];
+
                           return (
                             <td
                               key={state.State_UT}
@@ -319,7 +395,9 @@ export default function StateComparison() {
                               {val !== null && val !== undefined ? (
                                 `${val.toFixed(1)}%`
                               ) : (
-                                <span className="text-slate-400 italic">N/A</span>
+                                <span className="text-slate-400 italic">
+                                  N/A
+                                </span>
                               )}
                             </td>
                           );
@@ -329,13 +407,21 @@ export default function StateComparison() {
                   })
                 : BINARY_INDICATORS.map((key) => {
                     const meta = INDICATOR_METADATA[key];
+
                     return (
-                      <tr key={key} className="hover:bg-[var(--color-surface-tertiary)]/50">
+                      <tr
+                        key={key}
+                        className="hover:bg-[var(--color-surface-tertiary)]/50"
+                      >
                         <td className="py-2.5 px-4 font-medium text-[var(--color-text-primary)]">
                           {meta?.label || key}
                         </td>
+
                         {selectedStateObjects.map((state) => {
-                          const val = (state as unknown as Record<string, number | null>)[key];
+                          const val = (
+                            state as unknown as Record<string, number | null>
+                          )[key];
+
                           return (
                             <td
                               key={state.State_UT}
@@ -350,7 +436,9 @@ export default function StateComparison() {
                                   <X size={12} /> No
                                 </span>
                               ) : (
-                                <span className="text-slate-400 italic">Unavailable (N/A)</span>
+                                <span className="text-slate-400 italic">
+                                  Unavailable (N/A)
+                                </span>
                               )}
                             </td>
                           );

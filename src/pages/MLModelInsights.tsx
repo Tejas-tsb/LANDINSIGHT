@@ -1,12 +1,11 @@
 import { useState, useMemo } from 'react';
 import { useData } from '../lib/dataContext';
+import { useSelectedClusterData } from '../lib/clusterExplorerContext';
 import { LoadingState } from '../components/ui/LoadingState';
 import { ErrorState } from '../components/ui/ErrorState';
 import { StatCard } from '../components/ui/StatCard';
 import {
   MODEL_DESCRIPTIONS,
-  SELECTED_MODEL,
-  SELECTED_K,
   ASSET_PATHS,
   RECHARTS_TOOLTIP_PROPS,
 } from '../lib/constants';
@@ -33,14 +32,19 @@ import {
 
 export default function MLModelInsights() {
   const { data, isLoading, error, reload } = useData();
+  const selected = useSelectedClusterData();
   const [selectedModelFilter, setSelectedModelFilter] = useState<'All' | 'Model A' | 'Model B' | 'Model C'>('All');
 
-  const modelMetrics = data?.modelMetrics ?? [];
+  const baseModelMetrics = data?.modelMetrics ?? [];
 
-  // Selected config
-  const selectedConfig = modelMetrics.find(
-    (m) => m.Model === SELECTED_MODEL && m.K === SELECTED_K
-  );
+  // Selected configuration metrics are sourced from the verified Phase 5 JSON.
+  const selectedConfig = selected.config;
+  const modelMetrics = selectedConfig ? (() => {
+    const selectedRow = { Model: selectedConfig.model, Feature_Count: selectedConfig.featureCount, K: selectedConfig.k, WCSS: selectedConfig.wcss, Silhouette_Score: selectedConfig.silhouetteScore, Davies_Bouldin_Index: selectedConfig.daviesBouldinIndex, Mean_ARI: selectedConfig.meanARI, Std_ARI: selectedConfig.stdARI };
+    const matchingIndex = baseModelMetrics.findIndex((row) => row.Model === selectedConfig.model && row.K === selectedConfig.k);
+    if (matchingIndex < 0) return [...baseModelMetrics, selectedRow];
+    return baseModelMetrics.map((row, index) => index === matchingIndex ? selectedRow : row);
+  })() : baseModelMetrics;
 
   // Prepare line chart data comparing K vs Silhouette across Models
   const kComparisonData = useMemo(() => {
@@ -64,12 +68,12 @@ export default function MLModelInsights() {
     });
   }, [modelMetrics]);
 
-  if (isLoading) {
+  if (isLoading || selected.isExplorerLoading) {
     return <LoadingState message="Loading ML model evaluation metrics..." />;
   }
 
-  if (error || !data) {
-    return <ErrorState message={error || 'Failed to load data.'} onRetry={reload} />;
+  if (error || selected.explorerError || !data || !selectedConfig) {
+    return <ErrorState message={error || selected.explorerError || 'Failed to load data.'} onRetry={reload} />;
   }
 
   return (
@@ -85,41 +89,53 @@ export default function MLModelInsights() {
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
             <CheckCircle size={14} />
-            Selected: {SELECTED_MODEL} (K={SELECTED_K})
+            Selected: {selectedConfig.model} (K={selectedConfig.k})
           </span>
         </div>
       </div>
 
       {/* Selected Model Performance Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         <StatCard
           label="Selected Model"
-          value={SELECTED_MODEL}
-          subtitle="Rare feature sensitivity (13 features)"
+          value={selectedConfig.model}
+          subtitle={`${selectedConfig.featureCount} selected features`}
           icon={<Brain size={20} className="text-blue-600" />}
         />
         <StatCard
-          label="Optimal K"
-          value={`K = ${SELECTED_K}`}
-          subtitle="Binary partition (2 clusters)"
+          label="Selected K"
+          value={`K = ${selectedConfig.k}`}
+          subtitle={`${selectedConfig.k} cluster groups`}
           icon={<Layers size={20} className="text-blue-600" />}
         />
         <StatCard
           label="Silhouette Score"
-          value={selectedConfig ? selectedConfig.Silhouette_Score.toFixed(4) : '0.4076'}
+          value={selectedConfig.silhouetteScore.toFixed(4)}
           subtitle="Mean silhouette coefficient: (b - a) / max(a, b)"
           icon={<Activity size={20} className="text-emerald-600" />}
         />
         <StatCard
           label="Davies-Bouldin Index"
-          value={selectedConfig ? selectedConfig.Davies_Bouldin_Index.toFixed(4) : '1.1524'}
+          value={selectedConfig.daviesBouldinIndex.toFixed(4)}
           subtitle="Cluster scatter-to-separation ratio (lower is superior)"
           icon={<TrendingDown size={20} className="text-emerald-600" />}
         />
         <StatCard
-          label="Stability (Mean ARI)"
-          value={selectedConfig ? selectedConfig.Mean_ARI.toFixed(4) : '1.0000'}
-          subtitle="Zero variance (Std = 0.0000)"
+          label="WCSS"
+          value={selectedConfig.wcss.toFixed(2)}
+          subtitle="Within-cluster sum of squares"
+          icon={<Activity size={20} className="text-blue-600" />}
+        />
+        <StatCard
+          label="Mean ARI"
+          value={selectedConfig.meanARI.toFixed(4)}
+          subtitle="Mean pairwise adjusted Rand index"
+          icon={<ShieldCheck size={20} className="text-blue-600" />}
+        />
+        <StatCard
+          label="Std ARI"
+          value={selectedConfig.stdARI.toFixed(4)}
+          subtitle="Stability variation across seeds"
           icon={<ShieldCheck size={20} className="text-blue-600" />}
         />
       </div>
@@ -133,7 +149,7 @@ export default function MLModelInsights() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--color-border)]">
           {Object.entries(MODEL_DESCRIPTIONS).map(([key, desc]) => {
-            const isSelected = key === SELECTED_MODEL;
+            const isSelected = key === selectedConfig.model;
             return (
               <div
                 key={key}
@@ -247,11 +263,11 @@ export default function MLModelInsights() {
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1.5">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#2563EB]" />
-                  <span>Cluster 0 (7)</span>
+                  <span>Cluster 0 ({selected.config?.clusterDistribution['0'] ?? 0})</span>
                 </span>
                 <span className="flex items-center gap-1.5">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]" />
-                  <span>Cluster 1 (29)</span>
+                  <span>Cluster 1 ({selected.config?.clusterDistribution['1'] ?? 0})</span>
                 </span>
               </div>
             </div>
@@ -319,7 +335,7 @@ export default function MLModelInsights() {
             </thead>
             <tbody className="divide-y divide-[var(--color-border)]">
               {modelMetrics.map((row, idx) => {
-                const isSelected = row.Model === SELECTED_MODEL && row.K === SELECTED_K;
+                const isSelected = row.Model === selectedConfig.model && row.K === selectedConfig.k;
                 return (
                   <tr
                     key={idx}

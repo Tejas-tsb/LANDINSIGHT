@@ -1,0 +1,1985 @@
+{
+  "project": "LANDINSIGHT",
+  "version": 1,
+  "defaultConfiguration": "Model_C_K2",
+  "configurations": [
+    {
+      "id": "Model_C_K2",
+      "model": "Model C",
+      "k": 2,
+      "featureCount": 13,
+      "wcss": 304.7327380301655,
+      "silhouetteScore": 0.4075831908109508,
+      "daviesBouldinIndex": 1.1524325434856664,
+      "meanARI": 1.0,
+      "stdARI": 0.0,
+      "clusterDistribution": {
+        "0": 7,
+        "1": 29
+      }
+    },
+    {
+      "id": "Model_B_K3",
+      "model": "Model B",
+      "k": 3,
+      "featureCount": 12,
+      "wcss": 244.46447879708938,
+      "silhouetteScore": 0.22925746931143237,
+      "daviesBouldinIndex": 1.61301250792837,
+      "meanARI": 0.9375132530561073,
+      "stdARI": 0.0628158509653912,
+      "clusterDistribution": {
+        "0": 19,
+        "1": 11,
+        "2": 6
+      }
+    },
+    {
+      "id": "Model_B_K4",
+      "model": "Model B",
+      "k": 4,
+      "featureCount": 12,
+      "wcss": 205.15485467754806,
+      "silhouetteScore": 0.27265991117696536,
+      "daviesBouldinIndex": 1.3739258088087456,
+      "meanARI": 0.7894777869221262,
+      "stdARI": 0.17881182444931054,
+      "clusterDistribution": {
+        "0": 15,
+        "1": 6,
+        "2": 4,
+        "3": 11
+      }
+    },
+    {
+      "id": "Model_B_K5",
+      "model": "Model B",
+      "k": 5,
+      "featureCount": 12,
+      "wcss": 167.46169987708097,
+      "silhouetteScore": 0.32161463293807785,
+      "daviesBouldinIndex": 1.2396029413507628,
+      "meanARI": 0.9759593473546616,
+      "stdARI": 0.02959647965242521,
+      "clusterDistribution": {
+        "0": 15,
+        "1": 2,
+        "2": 6,
+        "3": 9,
+        "4": 4
+      }
+    }
+  ],
+  "assignments": [
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "ANDAMAN & NICOBAR ISLANDS",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "ANDHRA PRADESH",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "ARUNACHAL PRADESH",
+      "Cluster": 0,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "ASSAM",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "BIHAR",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "CHANDIGARH",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "CHHATTISGARH",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "DADRA AND NAGAR HAVELI AND DAMAN AND DIU",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "DELHI",
+      "Cluster": 0,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "GOA",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "GUJARAT",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "HARYANA",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "HIMACHAL PRADESH",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "JAMMU & KASHMIR",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "JHARKHAND",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "KARNATAKA",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "KERALA",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "LADAKH",
+      "Cluster": 0,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "LAKSHADWEEP",
+      "Cluster": 0,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "MADHYA PRADESH",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "MAHARASHTRA",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "MANIPUR",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "MEGHALAYA",
+      "Cluster": 0,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "MIZORAM",
+      "Cluster": 0,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "NAGALAND",
+      "Cluster": 0,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "ODISHA",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "PUDUCHERRY",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "PUNJAB",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "RAJASTHAN",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "SIKKIM",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "TAMIL NADU",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "TELANGANA",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "TRIPURA",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "UTTAR PRADESH",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "UTTARAKHAND",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "State_UT": "WEST BENGAL",
+      "Cluster": 1,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "ANDAMAN & NICOBAR ISLANDS",
+      "Cluster": 1,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "ANDHRA PRADESH",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "ARUNACHAL PRADESH",
+      "Cluster": 2,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "ASSAM",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "BIHAR",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "CHANDIGARH",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "CHHATTISGARH",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "DADRA AND NAGAR HAVELI AND DAMAN AND DIU",
+      "Cluster": 1,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "DELHI",
+      "Cluster": 1,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "GOA",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "GUJARAT",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "HARYANA",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "HIMACHAL PRADESH",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "JAMMU & KASHMIR",
+      "Cluster": 1,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "JHARKHAND",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "KARNATAKA",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "KERALA",
+      "Cluster": 1,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "LADAKH",
+      "Cluster": 2,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "LAKSHADWEEP",
+      "Cluster": 2,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "MADHYA PRADESH",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "MAHARASHTRA",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "MANIPUR",
+      "Cluster": 1,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "MEGHALAYA",
+      "Cluster": 2,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "MIZORAM",
+      "Cluster": 2,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "NAGALAND",
+      "Cluster": 2,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "ODISHA",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "PUDUCHERRY",
+      "Cluster": 1,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "PUNJAB",
+      "Cluster": 1,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "RAJASTHAN",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "SIKKIM",
+      "Cluster": 1,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "TAMIL NADU",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "TELANGANA",
+      "Cluster": 1,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "TRIPURA",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "UTTAR PRADESH",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "UTTARAKHAND",
+      "Cluster": 1,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "State_UT": "WEST BENGAL",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "ANDAMAN & NICOBAR ISLANDS",
+      "Cluster": 3,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "ANDHRA PRADESH",
+      "Cluster": 2,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "ARUNACHAL PRADESH",
+      "Cluster": 1,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "ASSAM",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "BIHAR",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "CHANDIGARH",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "CHHATTISGARH",
+      "Cluster": 2,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "DADRA AND NAGAR HAVELI AND DAMAN AND DIU",
+      "Cluster": 3,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "DELHI",
+      "Cluster": 3,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "GOA",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "GUJARAT",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "HARYANA",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "HIMACHAL PRADESH",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "JAMMU & KASHMIR",
+      "Cluster": 3,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "JHARKHAND",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "KARNATAKA",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "KERALA",
+      "Cluster": 3,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "LADAKH",
+      "Cluster": 1,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "LAKSHADWEEP",
+      "Cluster": 1,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "MADHYA PRADESH",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "MAHARASHTRA",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "MANIPUR",
+      "Cluster": 3,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "MEGHALAYA",
+      "Cluster": 1,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "MIZORAM",
+      "Cluster": 1,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "NAGALAND",
+      "Cluster": 1,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "ODISHA",
+      "Cluster": 2,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "PUDUCHERRY",
+      "Cluster": 3,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "PUNJAB",
+      "Cluster": 3,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "RAJASTHAN",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "SIKKIM",
+      "Cluster": 3,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "TAMIL NADU",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "TELANGANA",
+      "Cluster": 3,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "TRIPURA",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "UTTAR PRADESH",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "UTTARAKHAND",
+      "Cluster": 3,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "State_UT": "WEST BENGAL",
+      "Cluster": 2,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "ANDAMAN & NICOBAR ISLANDS",
+      "Cluster": 3,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "ANDHRA PRADESH",
+      "Cluster": 4,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "ARUNACHAL PRADESH",
+      "Cluster": 1,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "ASSAM",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "BIHAR",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "CHANDIGARH",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "CHHATTISGARH",
+      "Cluster": 4,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "DADRA AND NAGAR HAVELI AND DAMAN AND DIU",
+      "Cluster": 2,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "DELHI",
+      "Cluster": 3,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "GOA",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "GUJARAT",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "HARYANA",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "HIMACHAL PRADESH",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "JAMMU & KASHMIR",
+      "Cluster": 3,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "JHARKHAND",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "KARNATAKA",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "KERALA",
+      "Cluster": 3,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "LADAKH",
+      "Cluster": 2,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "LAKSHADWEEP",
+      "Cluster": 2,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "MADHYA PRADESH",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "MAHARASHTRA",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "MANIPUR",
+      "Cluster": 2,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "MEGHALAYA",
+      "Cluster": 1,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "MIZORAM",
+      "Cluster": 2,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "NAGALAND",
+      "Cluster": 2,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "ODISHA",
+      "Cluster": 4,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "PUDUCHERRY",
+      "Cluster": 3,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "PUNJAB",
+      "Cluster": 3,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "RAJASTHAN",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "SIKKIM",
+      "Cluster": 3,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "TAMIL NADU",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "TELANGANA",
+      "Cluster": 3,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "TRIPURA",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "UTTAR PRADESH",
+      "Cluster": 0,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "UTTARAKHAND",
+      "Cluster": 3,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "State_UT": "WEST BENGAL",
+      "Cluster": 4,
+      "Config_ID": "Model_B_K5"
+    }
+  ],
+  "profiles": [
+    {
+      "Model": "Model C",
+      "K": 2,
+      "Cluster": 0,
+      "State_UT_Count": 7,
+      "Cluster_Percentage": 19.444444444444446,
+      "State_UTs": "ARUNACHAL PRADESH, DELHI, LADAKH, LAKSHADWEEP, MEGHALAYA, MIZORAM, NAGALAND",
+      "Map_Digitization_Pct": 50.95285714285715,
+      "Map_GeoReferencing_Pct": 15.025714285714287,
+      "Map_RoR_Linkage_Pct": 14.778571428571427,
+      "Land_Parcel_GeoReferencing_Pct": 16.114285714285714,
+      "Land_Parcel_ULPIN_Pct": 8.127142857142859,
+      "RoR_Computerization_Pct": 66.80285714285715,
+      "Villages_CLR_Completed_Pct": 44.76142857142857,
+      "Updated_Ownership_Districts_Pct": 32.39795918367347,
+      "MRR_Completion_Pct_Total": 21.802857142857142,
+      "Online_RoR_Download": 28.57142857142857,
+      "Digitally_Signed_RoR": 0.0,
+      "Online_Mutation_Application": 14.285714285714285,
+      "Auto_Triggered_Mutation": 14.285714285714285,
+      "Auto_Mutation": 0.0,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "Cluster": 1,
+      "State_UT_Count": 29,
+      "Cluster_Percentage": 80.55555555555556,
+      "State_UTs": "ANDAMAN & NICOBAR ISLANDS, ANDHRA PRADESH, ASSAM, BIHAR, CHANDIGARH, CHHATTISGARH, DADRA AND NAGAR HAVELI AND DAMAN AND DIU, GOA, GUJARAT, HARYANA, HIMACHAL PRADESH, JAMMU & KASHMIR, JHARKHAND, KARNATAKA, KERALA, MADHYA PRADESH, MAHARASHTRA, MANIPUR, ODISHA, PUDUCHERRY, PUNJAB, RAJASTHAN, SIKKIM, TAMIL NADU, TELANGANA, TRIPURA, UTTAR PRADESH, UTTARAKHAND, WEST BENGAL",
+      "Map_Digitization_Pct": 94.6806896551724,
+      "Map_GeoReferencing_Pct": 57.56413793103449,
+      "Map_RoR_Linkage_Pct": 67.18620689655172,
+      "Land_Parcel_GeoReferencing_Pct": 72.64379310344827,
+      "Land_Parcel_ULPIN_Pct": 65.86172413793102,
+      "RoR_Computerization_Pct": 98.84103448275862,
+      "Villages_CLR_Completed_Pct": 97.40448275862069,
+      "Updated_Ownership_Districts_Pct": 24.42408875543223,
+      "MRR_Completion_Pct_Total": 57.76862068965517,
+      "Online_RoR_Download": 100.0,
+      "Digitally_Signed_RoR": 82.75862068965517,
+      "Online_Mutation_Application": 86.20689655172413,
+      "Auto_Triggered_Mutation": 89.65517241379311,
+      "Auto_Mutation": 13.793103448275861,
+      "Config_ID": "Model_C_K2"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "Cluster": 0,
+      "State_UT_Count": 19,
+      "Cluster_Percentage": 52.77777777777778,
+      "State_UTs": "ANDHRA PRADESH, ASSAM, BIHAR, CHANDIGARH, CHHATTISGARH, GOA, GUJARAT, HARYANA, HIMACHAL PRADESH, JHARKHAND, KARNATAKA, MADHYA PRADESH, MAHARASHTRA, ODISHA, RAJASTHAN, TAMIL NADU, TRIPURA, UTTAR PRADESH, WEST BENGAL",
+      "Map_Digitization_Pct": 97.20736842105264,
+      "Map_GeoReferencing_Pct": 63.873684210526314,
+      "Map_RoR_Linkage_Pct": 93.85263157894738,
+      "Land_Parcel_GeoReferencing_Pct": 85.26736842105262,
+      "Land_Parcel_ULPIN_Pct": 81.05263157894737,
+      "RoR_Computerization_Pct": 99.29157894736842,
+      "Villages_CLR_Completed_Pct": 98.75578947368422,
+      "Updated_Ownership_Districts_Pct": 30.588022161834743,
+      "MRR_Completion_Pct_Total": 69.68789473684211,
+      "Online_RoR_Download": 100.0,
+      "Digitally_Signed_RoR": 89.47368421052632,
+      "Online_Mutation_Application": 100.0,
+      "Auto_Triggered_Mutation": 100.0,
+      "Auto_Mutation": 21.052631578947366,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "Cluster": 1,
+      "State_UT_Count": 11,
+      "Cluster_Percentage": 30.555555555555557,
+      "State_UTs": "ANDAMAN & NICOBAR ISLANDS, DADRA AND NAGAR HAVELI AND DAMAN AND DIU, DELHI, JAMMU & KASHMIR, KERALA, MANIPUR, PUDUCHERRY, PUNJAB, SIKKIM, TELANGANA, UTTARAKHAND",
+      "Map_Digitization_Pct": 89.01181818181819,
+      "Map_GeoReferencing_Pct": 42.35454545454545,
+      "Map_RoR_Linkage_Pct": 15.312727272727273,
+      "Land_Parcel_GeoReferencing_Pct": 44.23545454545455,
+      "Land_Parcel_ULPIN_Pct": 33.63545454545454,
+      "RoR_Computerization_Pct": 97.16,
+      "Villages_CLR_Completed_Pct": 88.69818181818182,
+      "Updated_Ownership_Districts_Pct": 12.855624283489897,
+      "MRR_Completion_Pct_Total": 32.62818181818182,
+      "Online_RoR_Download": 100.0,
+      "Digitally_Signed_RoR": 63.63636363636363,
+      "Online_Mutation_Application": 63.63636363636363,
+      "Auto_Triggered_Mutation": 72.72727272727273,
+      "Auto_Mutation": 0.0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "Cluster": 2,
+      "State_UT_Count": 6,
+      "Cluster_Percentage": 16.666666666666664,
+      "State_UTs": "ARUNACHAL PRADESH, LADAKH, LAKSHADWEEP, MEGHALAYA, MIZORAM, NAGALAND",
+      "Map_Digitization_Pct": 46.056666666666665,
+      "Map_GeoReferencing_Pct": 15.839999999999998,
+      "Map_RoR_Linkage_Pct": 16.701666666666664,
+      "Land_Parcel_GeoReferencing_Pct": 18.8,
+      "Land_Parcel_ULPIN_Pct": 9.481666666666667,
+      "RoR_Computerization_Pct": 63.11833333333333,
+      "Villages_CLR_Completed_Pct": 47.67000000000001,
+      "Updated_Ownership_Districts_Pct": 35.416666666666664,
+      "MRR_Completion_Pct_Total": 24.155,
+      "Online_RoR_Download": 16.666666666666664,
+      "Digitally_Signed_RoR": 0.0,
+      "Online_Mutation_Application": 0.0,
+      "Auto_Triggered_Mutation": 0.0,
+      "Auto_Mutation": 0.0,
+      "Config_ID": "Model_B_K3"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "Cluster": 0,
+      "State_UT_Count": 15,
+      "Cluster_Percentage": 41.66666666666667,
+      "State_UTs": "ASSAM, BIHAR, CHANDIGARH, GOA, GUJARAT, HARYANA, HIMACHAL PRADESH, JHARKHAND, KARNATAKA, MADHYA PRADESH, MAHARASHTRA, RAJASTHAN, TAMIL NADU, TRIPURA, UTTAR PRADESH",
+      "Map_Digitization_Pct": 98.538,
+      "Map_GeoReferencing_Pct": 73.47933333333334,
+      "Map_RoR_Linkage_Pct": 94.98333333333333,
+      "Land_Parcel_GeoReferencing_Pct": 91.76133333333333,
+      "Land_Parcel_ULPIN_Pct": 90.36599999999999,
+      "RoR_Computerization_Pct": 99.11466666666666,
+      "Villages_CLR_Completed_Pct": 98.958,
+      "Updated_Ownership_Districts_Pct": 32.078161404990674,
+      "MRR_Completion_Pct_Total": 69.85933333333334,
+      "Online_RoR_Download": 100.0,
+      "Digitally_Signed_RoR": 93.33333333333333,
+      "Online_Mutation_Application": 100.0,
+      "Auto_Triggered_Mutation": 100.0,
+      "Auto_Mutation": 0.0,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "Cluster": 1,
+      "State_UT_Count": 6,
+      "Cluster_Percentage": 16.666666666666664,
+      "State_UTs": "ARUNACHAL PRADESH, LADAKH, LAKSHADWEEP, MEGHALAYA, MIZORAM, NAGALAND",
+      "Map_Digitization_Pct": 46.056666666666665,
+      "Map_GeoReferencing_Pct": 15.839999999999998,
+      "Map_RoR_Linkage_Pct": 16.701666666666664,
+      "Land_Parcel_GeoReferencing_Pct": 18.8,
+      "Land_Parcel_ULPIN_Pct": 9.481666666666667,
+      "RoR_Computerization_Pct": 63.11833333333333,
+      "Villages_CLR_Completed_Pct": 47.67000000000001,
+      "Updated_Ownership_Districts_Pct": 35.416666666666664,
+      "MRR_Completion_Pct_Total": 24.155,
+      "Online_RoR_Download": 16.666666666666664,
+      "Digitally_Signed_RoR": 0.0,
+      "Online_Mutation_Application": 0.0,
+      "Auto_Triggered_Mutation": 0.0,
+      "Auto_Mutation": 0.0,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "Cluster": 2,
+      "State_UT_Count": 4,
+      "Cluster_Percentage": 11.11111111111111,
+      "State_UTs": "ANDHRA PRADESH, CHHATTISGARH, ODISHA, WEST BENGAL",
+      "Map_Digitization_Pct": 92.2175,
+      "Map_GeoReferencing_Pct": 27.852500000000003,
+      "Map_RoR_Linkage_Pct": 89.61249999999998,
+      "Land_Parcel_GeoReferencing_Pct": 60.91499999999999,
+      "Land_Parcel_ULPIN_Pct": 46.1275,
+      "RoR_Computerization_Pct": 99.955,
+      "Villages_CLR_Completed_Pct": 97.99749999999999,
+      "Updated_Ownership_Districts_Pct": 25.0,
+      "MRR_Completion_Pct_Total": 69.04499999999999,
+      "Online_RoR_Download": 100.0,
+      "Digitally_Signed_RoR": 75.0,
+      "Online_Mutation_Application": 100.0,
+      "Auto_Triggered_Mutation": 100.0,
+      "Auto_Mutation": 100.0,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "Cluster": 3,
+      "State_UT_Count": 11,
+      "Cluster_Percentage": 30.555555555555557,
+      "State_UTs": "ANDAMAN & NICOBAR ISLANDS, DADRA AND NAGAR HAVELI AND DAMAN AND DIU, DELHI, JAMMU & KASHMIR, KERALA, MANIPUR, PUDUCHERRY, PUNJAB, SIKKIM, TELANGANA, UTTARAKHAND",
+      "Map_Digitization_Pct": 89.01181818181819,
+      "Map_GeoReferencing_Pct": 42.35454545454545,
+      "Map_RoR_Linkage_Pct": 15.312727272727273,
+      "Land_Parcel_GeoReferencing_Pct": 44.23545454545455,
+      "Land_Parcel_ULPIN_Pct": 33.63545454545454,
+      "RoR_Computerization_Pct": 97.16,
+      "Villages_CLR_Completed_Pct": 88.69818181818182,
+      "Updated_Ownership_Districts_Pct": 12.855624283489897,
+      "MRR_Completion_Pct_Total": 32.62818181818182,
+      "Online_RoR_Download": 100.0,
+      "Digitally_Signed_RoR": 63.63636363636363,
+      "Online_Mutation_Application": 63.63636363636363,
+      "Auto_Triggered_Mutation": 72.72727272727273,
+      "Auto_Mutation": 0.0,
+      "Config_ID": "Model_B_K4"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "Cluster": 0,
+      "State_UT_Count": 15,
+      "Cluster_Percentage": 41.66666666666667,
+      "State_UTs": "ASSAM, BIHAR, CHANDIGARH, GOA, GUJARAT, HARYANA, HIMACHAL PRADESH, JHARKHAND, KARNATAKA, MADHYA PRADESH, MAHARASHTRA, RAJASTHAN, TAMIL NADU, TRIPURA, UTTAR PRADESH",
+      "Map_Digitization_Pct": 98.538,
+      "Map_GeoReferencing_Pct": 73.47933333333334,
+      "Map_RoR_Linkage_Pct": 94.98333333333333,
+      "Land_Parcel_GeoReferencing_Pct": 91.76133333333333,
+      "Land_Parcel_ULPIN_Pct": 90.36599999999999,
+      "RoR_Computerization_Pct": 99.11466666666666,
+      "Villages_CLR_Completed_Pct": 98.958,
+      "Updated_Ownership_Districts_Pct": 32.078161404990674,
+      "MRR_Completion_Pct_Total": 69.85933333333334,
+      "Online_RoR_Download": 100.0,
+      "Digitally_Signed_RoR": 93.33333333333333,
+      "Online_Mutation_Application": 100.0,
+      "Auto_Triggered_Mutation": 100.0,
+      "Auto_Mutation": 0.0,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "Cluster": 1,
+      "State_UT_Count": 2,
+      "Cluster_Percentage": 5.555555555555555,
+      "State_UTs": "ARUNACHAL PRADESH, MEGHALAYA",
+      "Map_Digitization_Pct": 0.0,
+      "Map_GeoReferencing_Pct": 0.0,
+      "Map_RoR_Linkage_Pct": 0.0,
+      "Land_Parcel_GeoReferencing_Pct": 0.0,
+      "Land_Parcel_ULPIN_Pct": 0.0,
+      "RoR_Computerization_Pct": 0.0,
+      "Villages_CLR_Completed_Pct": 0.0,
+      "Updated_Ownership_Districts_Pct": 0.0,
+      "MRR_Completion_Pct_Total": 0.0,
+      "Online_RoR_Download": 0.0,
+      "Digitally_Signed_RoR": 0.0,
+      "Online_Mutation_Application": 0.0,
+      "Auto_Triggered_Mutation": 0.0,
+      "Auto_Mutation": 0.0,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "Cluster": 2,
+      "State_UT_Count": 6,
+      "Cluster_Percentage": 16.666666666666664,
+      "State_UTs": "DADRA AND NAGAR HAVELI AND DAMAN AND DIU, LADAKH, LAKSHADWEEP, MANIPUR, MIZORAM, NAGALAND",
+      "Map_Digitization_Pct": 76.42999999999999,
+      "Map_GeoReferencing_Pct": 40.63666666666666,
+      "Map_RoR_Linkage_Pct": 24.948333333333334,
+      "Land_Parcel_GeoReferencing_Pct": 37.81666666666667,
+      "Land_Parcel_ULPIN_Pct": 30.411666666666665,
+      "RoR_Computerization_Pct": 95.71166666666666,
+      "Villages_CLR_Completed_Pct": 80.39666666666666,
+      "Updated_Ownership_Districts_Pct": 36.458333333333336,
+      "MRR_Completion_Pct_Total": 40.821666666666665,
+      "Online_RoR_Download": 50.0,
+      "Digitally_Signed_RoR": 16.666666666666664,
+      "Online_Mutation_Application": 0.0,
+      "Auto_Triggered_Mutation": 0.0,
+      "Auto_Mutation": 0.0,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "Cluster": 3,
+      "State_UT_Count": 9,
+      "Cluster_Percentage": 25.0,
+      "State_UTs": "ANDAMAN & NICOBAR ISLANDS, DELHI, JAMMU & KASHMIR, KERALA, PUDUCHERRY, PUNJAB, SIKKIM, TELANGANA, UTTARAKHAND",
+      "Map_Digitization_Pct": 88.54333333333335,
+      "Map_GeoReferencing_Pct": 35.23555555555555,
+      "Map_RoR_Linkage_Pct": 13.217777777777776,
+      "Land_Parcel_GeoReferencing_Pct": 41.38777777777778,
+      "Land_Parcel_ULPIN_Pct": 27.156666666666663,
+      "RoR_Computerization_Pct": 97.02222222222223,
+      "Villages_CLR_Completed_Pct": 86.59111111111112,
+      "Updated_Ownership_Districts_Pct": 15.01798523537654,
+      "MRR_Completion_Pct_Total": 28.767777777777773,
+      "Online_RoR_Download": 100.0,
+      "Digitally_Signed_RoR": 66.66666666666666,
+      "Online_Mutation_Application": 77.77777777777779,
+      "Auto_Triggered_Mutation": 88.88888888888889,
+      "Auto_Mutation": 0.0,
+      "Config_ID": "Model_B_K5"
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "Cluster": 4,
+      "State_UT_Count": 4,
+      "Cluster_Percentage": 11.11111111111111,
+      "State_UTs": "ANDHRA PRADESH, CHHATTISGARH, ODISHA, WEST BENGAL",
+      "Map_Digitization_Pct": 92.2175,
+      "Map_GeoReferencing_Pct": 27.852500000000003,
+      "Map_RoR_Linkage_Pct": 89.61249999999998,
+      "Land_Parcel_GeoReferencing_Pct": 60.91499999999999,
+      "Land_Parcel_ULPIN_Pct": 46.1275,
+      "RoR_Computerization_Pct": 99.955,
+      "Villages_CLR_Completed_Pct": 97.99749999999999,
+      "Updated_Ownership_Districts_Pct": 25.0,
+      "MRR_Completion_Pct_Total": 69.04499999999999,
+      "Online_RoR_Download": 100.0,
+      "Digitally_Signed_RoR": 75.0,
+      "Online_Mutation_Application": 100.0,
+      "Auto_Triggered_Mutation": 100.0,
+      "Auto_Mutation": 100.0,
+      "Config_ID": "Model_B_K5"
+    }
+  ],
+  "governanceGaps": [
+    {
+      "Model": "Model B",
+      "K": 3,
+      "Config_ID": "Model_B_K3",
+      "Indicator": "Map_Digitization_Pct",
+      "Minimum_Cluster_Mean": 46.056666666666665,
+      "Maximum_Cluster_Mean": 97.20736842105264,
+      "Absolute_Gap": 51.15070175438597,
+      "Gap_Rank": 4
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "Config_ID": "Model_B_K3",
+      "Indicator": "Map_GeoReferencing_Pct",
+      "Minimum_Cluster_Mean": 15.839999999999998,
+      "Maximum_Cluster_Mean": 63.87368421052632,
+      "Absolute_Gap": 48.03368421052632,
+      "Gap_Rank": 6
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "Config_ID": "Model_B_K3",
+      "Indicator": "Map_RoR_Linkage_Pct",
+      "Minimum_Cluster_Mean": 15.312727272727273,
+      "Maximum_Cluster_Mean": 93.85263157894738,
+      "Absolute_Gap": 78.53990430622011,
+      "Gap_Rank": 1
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "Config_ID": "Model_B_K3",
+      "Indicator": "Land_Parcel_GeoReferencing_Pct",
+      "Minimum_Cluster_Mean": 18.8,
+      "Maximum_Cluster_Mean": 85.26736842105262,
+      "Absolute_Gap": 66.46736842105263,
+      "Gap_Rank": 3
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "Config_ID": "Model_B_K3",
+      "Indicator": "Land_Parcel_ULPIN_Pct",
+      "Minimum_Cluster_Mean": 9.481666666666667,
+      "Maximum_Cluster_Mean": 81.05263157894737,
+      "Absolute_Gap": 71.5709649122807,
+      "Gap_Rank": 2
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "Config_ID": "Model_B_K3",
+      "Indicator": "RoR_Computerization_Pct",
+      "Minimum_Cluster_Mean": 63.11833333333333,
+      "Maximum_Cluster_Mean": 99.29157894736842,
+      "Absolute_Gap": 36.17324561403509,
+      "Gap_Rank": 8
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "Config_ID": "Model_B_K3",
+      "Indicator": "Villages_CLR_Completed_Pct",
+      "Minimum_Cluster_Mean": 47.67000000000001,
+      "Maximum_Cluster_Mean": 98.75578947368422,
+      "Absolute_Gap": 51.08578947368421,
+      "Gap_Rank": 5
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "Config_ID": "Model_B_K3",
+      "Indicator": "Updated_Ownership_Districts_Pct",
+      "Minimum_Cluster_Mean": 12.855624283489895,
+      "Maximum_Cluster_Mean": 35.416666666666664,
+      "Absolute_Gap": 22.56104238317677,
+      "Gap_Rank": 9
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "Config_ID": "Model_B_K3",
+      "Indicator": "MRR_Completion_Pct_Total",
+      "Minimum_Cluster_Mean": 24.155,
+      "Maximum_Cluster_Mean": 69.68789473684211,
+      "Absolute_Gap": 45.53289473684211,
+      "Gap_Rank": 7
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "Config_ID": "Model_B_K3",
+      "Indicator": "Online_RoR_Download",
+      "Minimum_Cluster_Mean": 16.66666666666666,
+      "Maximum_Cluster_Mean": 100.0,
+      "Absolute_Gap": 83.33333333333334,
+      "Gap_Rank": 12
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "Config_ID": "Model_B_K3",
+      "Indicator": "Digitally_Signed_RoR",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 89.47368421052632,
+      "Absolute_Gap": 89.47368421052632,
+      "Gap_Rank": 11
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "Config_ID": "Model_B_K3",
+      "Indicator": "Online_Mutation_Application",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 100.0,
+      "Absolute_Gap": 100.0,
+      "Gap_Rank": 10
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "Config_ID": "Model_B_K3",
+      "Indicator": "Auto_Triggered_Mutation",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 100.0,
+      "Absolute_Gap": 100.0,
+      "Gap_Rank": 10
+    },
+    {
+      "Model": "Model B",
+      "K": 3,
+      "Config_ID": "Model_B_K3",
+      "Indicator": "Auto_Mutation",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 21.05263157894736,
+      "Absolute_Gap": 21.05263157894736,
+      "Gap_Rank": 13
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "Config_ID": "Model_B_K4",
+      "Indicator": "Map_Digitization_Pct",
+      "Minimum_Cluster_Mean": 46.056666666666665,
+      "Maximum_Cluster_Mean": 98.538,
+      "Absolute_Gap": 52.48133333333333,
+      "Gap_Rank": 5
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "Config_ID": "Model_B_K4",
+      "Indicator": "Map_GeoReferencing_Pct",
+      "Minimum_Cluster_Mean": 15.839999999999998,
+      "Maximum_Cluster_Mean": 73.47933333333334,
+      "Absolute_Gap": 57.63933333333335,
+      "Gap_Rank": 4
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "Config_ID": "Model_B_K4",
+      "Indicator": "Map_RoR_Linkage_Pct",
+      "Minimum_Cluster_Mean": 15.312727272727273,
+      "Maximum_Cluster_Mean": 94.98333333333332,
+      "Absolute_Gap": 79.67060606060606,
+      "Gap_Rank": 2
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "Config_ID": "Model_B_K4",
+      "Indicator": "Land_Parcel_GeoReferencing_Pct",
+      "Minimum_Cluster_Mean": 18.8,
+      "Maximum_Cluster_Mean": 91.76133333333333,
+      "Absolute_Gap": 72.96133333333333,
+      "Gap_Rank": 3
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "Config_ID": "Model_B_K4",
+      "Indicator": "Land_Parcel_ULPIN_Pct",
+      "Minimum_Cluster_Mean": 9.481666666666667,
+      "Maximum_Cluster_Mean": 90.366,
+      "Absolute_Gap": 80.88433333333332,
+      "Gap_Rank": 1
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "Config_ID": "Model_B_K4",
+      "Indicator": "RoR_Computerization_Pct",
+      "Minimum_Cluster_Mean": 63.11833333333333,
+      "Maximum_Cluster_Mean": 99.955,
+      "Absolute_Gap": 36.836666666666666,
+      "Gap_Rank": 8
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "Config_ID": "Model_B_K4",
+      "Indicator": "Villages_CLR_Completed_Pct",
+      "Minimum_Cluster_Mean": 47.67000000000001,
+      "Maximum_Cluster_Mean": 98.958,
+      "Absolute_Gap": 51.28799999999999,
+      "Gap_Rank": 6
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "Config_ID": "Model_B_K4",
+      "Indicator": "Updated_Ownership_Districts_Pct",
+      "Minimum_Cluster_Mean": 12.855624283489895,
+      "Maximum_Cluster_Mean": 35.416666666666664,
+      "Absolute_Gap": 22.56104238317677,
+      "Gap_Rank": 9
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "Config_ID": "Model_B_K4",
+      "Indicator": "MRR_Completion_Pct_Total",
+      "Minimum_Cluster_Mean": 24.155,
+      "Maximum_Cluster_Mean": 69.85933333333334,
+      "Absolute_Gap": 45.70433333333334,
+      "Gap_Rank": 7
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "Config_ID": "Model_B_K4",
+      "Indicator": "Online_RoR_Download",
+      "Minimum_Cluster_Mean": 16.66666666666666,
+      "Maximum_Cluster_Mean": 100.0,
+      "Absolute_Gap": 83.33333333333334,
+      "Gap_Rank": 12
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "Config_ID": "Model_B_K4",
+      "Indicator": "Digitally_Signed_RoR",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 93.33333333333333,
+      "Absolute_Gap": 93.33333333333333,
+      "Gap_Rank": 11
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "Config_ID": "Model_B_K4",
+      "Indicator": "Online_Mutation_Application",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 100.0,
+      "Absolute_Gap": 100.0,
+      "Gap_Rank": 10
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "Config_ID": "Model_B_K4",
+      "Indicator": "Auto_Triggered_Mutation",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 100.0,
+      "Absolute_Gap": 100.0,
+      "Gap_Rank": 10
+    },
+    {
+      "Model": "Model B",
+      "K": 4,
+      "Config_ID": "Model_B_K4",
+      "Indicator": "Auto_Mutation",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 100.0,
+      "Absolute_Gap": 100.0,
+      "Gap_Rank": 10
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "Config_ID": "Model_B_K5",
+      "Indicator": "Map_Digitization_Pct",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 98.538,
+      "Absolute_Gap": 98.538,
+      "Gap_Rank": 3
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "Config_ID": "Model_B_K5",
+      "Indicator": "Map_GeoReferencing_Pct",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 73.47933333333334,
+      "Absolute_Gap": 73.47933333333334,
+      "Gap_Rank": 7
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "Config_ID": "Model_B_K5",
+      "Indicator": "Map_RoR_Linkage_Pct",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 94.98333333333332,
+      "Absolute_Gap": 94.98333333333332,
+      "Gap_Rank": 4
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "Config_ID": "Model_B_K5",
+      "Indicator": "Land_Parcel_GeoReferencing_Pct",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 91.76133333333333,
+      "Absolute_Gap": 91.76133333333333,
+      "Gap_Rank": 5
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "Config_ID": "Model_B_K5",
+      "Indicator": "Land_Parcel_ULPIN_Pct",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 90.366,
+      "Absolute_Gap": 90.366,
+      "Gap_Rank": 6
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "Config_ID": "Model_B_K5",
+      "Indicator": "RoR_Computerization_Pct",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 99.955,
+      "Absolute_Gap": 99.955,
+      "Gap_Rank": 1
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "Config_ID": "Model_B_K5",
+      "Indicator": "Villages_CLR_Completed_Pct",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 98.958,
+      "Absolute_Gap": 98.958,
+      "Gap_Rank": 2
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "Config_ID": "Model_B_K5",
+      "Indicator": "Updated_Ownership_Districts_Pct",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 36.458333333333336,
+      "Absolute_Gap": 36.458333333333336,
+      "Gap_Rank": 9
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "Config_ID": "Model_B_K5",
+      "Indicator": "MRR_Completion_Pct_Total",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 69.85933333333334,
+      "Absolute_Gap": 69.85933333333334,
+      "Gap_Rank": 8
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "Config_ID": "Model_B_K5",
+      "Indicator": "Online_RoR_Download",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 100.0,
+      "Absolute_Gap": 100.0,
+      "Gap_Rank": 10
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "Config_ID": "Model_B_K5",
+      "Indicator": "Digitally_Signed_RoR",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 93.33333333333333,
+      "Absolute_Gap": 93.33333333333333,
+      "Gap_Rank": 11
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "Config_ID": "Model_B_K5",
+      "Indicator": "Online_Mutation_Application",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 100.0,
+      "Absolute_Gap": 100.0,
+      "Gap_Rank": 10
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "Config_ID": "Model_B_K5",
+      "Indicator": "Auto_Triggered_Mutation",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 100.0,
+      "Absolute_Gap": 100.0,
+      "Gap_Rank": 10
+    },
+    {
+      "Model": "Model B",
+      "K": 5,
+      "Config_ID": "Model_B_K5",
+      "Indicator": "Auto_Mutation",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 100.0,
+      "Absolute_Gap": 100.0,
+      "Gap_Rank": 10
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "Config_ID": "Model_C_K2",
+      "Indicator": "Map_Digitization_Pct",
+      "Minimum_Cluster_Mean": 50.95285714285715,
+      "Maximum_Cluster_Mean": 94.6806896551724,
+      "Absolute_Gap": 43.72783251231525,
+      "Gap_Rank": 5
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "Config_ID": "Model_C_K2",
+      "Indicator": "Map_GeoReferencing_Pct",
+      "Minimum_Cluster_Mean": 15.025714285714288,
+      "Maximum_Cluster_Mean": 57.56413793103449,
+      "Absolute_Gap": 42.5384236453202,
+      "Gap_Rank": 6
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "Config_ID": "Model_C_K2",
+      "Indicator": "Map_RoR_Linkage_Pct",
+      "Minimum_Cluster_Mean": 14.778571428571428,
+      "Maximum_Cluster_Mean": 67.18620689655172,
+      "Absolute_Gap": 52.4076354679803,
+      "Gap_Rank": 4
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "Config_ID": "Model_C_K2",
+      "Indicator": "Land_Parcel_GeoReferencing_Pct",
+      "Minimum_Cluster_Mean": 16.114285714285714,
+      "Maximum_Cluster_Mean": 72.64379310344827,
+      "Absolute_Gap": 56.52950738916256,
+      "Gap_Rank": 2
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "Config_ID": "Model_C_K2",
+      "Indicator": "Land_Parcel_ULPIN_Pct",
+      "Minimum_Cluster_Mean": 8.127142857142859,
+      "Maximum_Cluster_Mean": 65.86172413793102,
+      "Absolute_Gap": 57.73458128078816,
+      "Gap_Rank": 1
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "Config_ID": "Model_C_K2",
+      "Indicator": "RoR_Computerization_Pct",
+      "Minimum_Cluster_Mean": 66.80285714285715,
+      "Maximum_Cluster_Mean": 98.84103448275862,
+      "Absolute_Gap": 32.038177339901466,
+      "Gap_Rank": 8
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "Config_ID": "Model_C_K2",
+      "Indicator": "Villages_CLR_Completed_Pct",
+      "Minimum_Cluster_Mean": 44.76142857142857,
+      "Maximum_Cluster_Mean": 97.40448275862067,
+      "Absolute_Gap": 52.64305418719212,
+      "Gap_Rank": 3
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "Config_ID": "Model_C_K2",
+      "Indicator": "Updated_Ownership_Districts_Pct",
+      "Minimum_Cluster_Mean": 24.42408875543223,
+      "Maximum_Cluster_Mean": 32.39795918367347,
+      "Absolute_Gap": 7.973870428241241,
+      "Gap_Rank": 9
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "Config_ID": "Model_C_K2",
+      "Indicator": "MRR_Completion_Pct_Total",
+      "Minimum_Cluster_Mean": 21.802857142857142,
+      "Maximum_Cluster_Mean": 57.76862068965517,
+      "Absolute_Gap": 35.96576354679803,
+      "Gap_Rank": 7
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "Config_ID": "Model_C_K2",
+      "Indicator": "Online_RoR_Download",
+      "Minimum_Cluster_Mean": 28.57142857142857,
+      "Maximum_Cluster_Mean": 100.0,
+      "Absolute_Gap": 71.42857142857143,
+      "Gap_Rank": 13
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "Config_ID": "Model_C_K2",
+      "Indicator": "Digitally_Signed_RoR",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 82.75862068965517,
+      "Absolute_Gap": 82.75862068965517,
+      "Gap_Rank": 10
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "Config_ID": "Model_C_K2",
+      "Indicator": "Online_Mutation_Application",
+      "Minimum_Cluster_Mean": 14.28571428571428,
+      "Maximum_Cluster_Mean": 86.20689655172413,
+      "Absolute_Gap": 71.92118226600985,
+      "Gap_Rank": 12
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "Config_ID": "Model_C_K2",
+      "Indicator": "Auto_Triggered_Mutation",
+      "Minimum_Cluster_Mean": 14.28571428571428,
+      "Maximum_Cluster_Mean": 89.65517241379311,
+      "Absolute_Gap": 75.36945812807883,
+      "Gap_Rank": 11
+    },
+    {
+      "Model": "Model C",
+      "K": 2,
+      "Config_ID": "Model_C_K2",
+      "Indicator": "Auto_Mutation",
+      "Minimum_Cluster_Mean": 0.0,
+      "Maximum_Cluster_Mean": 13.79310344827586,
+      "Absolute_Gap": 13.79310344827586,
+      "Gap_Rank": 14
+    }
+  ],
+  "metadata": {
+    "totalStatesUTs": 36,
+    "configurationCount": 4,
+    "assignmentCount": 144,
+    "profileCount": 14,
+    "governanceGapCount": 56,
+    "percentageScale": "0-100",
+    "proportionIndicatorsConvertedToPercent": [
+      "Online_RoR_Download",
+      "Digitally_Signed_RoR",
+      "Online_Mutation_Application",
+      "Auto_Triggered_Mutation",
+      "Auto_Mutation"
+    ],
+    "note": "Auto_Mutation is retained as an additional experimental indicator. It is not present in the supplied production Model C K=2 reference CSV."
+  }
+}

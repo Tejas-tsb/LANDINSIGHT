@@ -1,5 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useData } from '../lib/dataContext';
+import { useSelectedClusterData } from '../lib/clusterExplorerContext';
 import { LoadingState } from '../components/ui/LoadingState';
 import { ErrorState } from '../components/ui/ErrorState';
 import { ClusterBadge } from '../components/ui/ClusterBadge';
@@ -33,13 +34,15 @@ import {
 } from 'recharts';
 
 export default function StateExplorer() {
-  const { data, isLoading, error, reload } = useData();
+  const { isLoading, error, reload } = useData();
+  const selected = useSelectedClusterData();
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedClusterFilter, setSelectedClusterFilter] = useState<'all' | 0 | 1>('all');
+  const [selectedClusterFilter, setSelectedClusterFilter] = useState<'all' | number>('all');
   const [selectedStateName, setSelectedStateName] = useState<string>('ANDHRA PRADESH');
+  useEffect(() => { setSelectedClusterFilter('all'); }, [selected.selectedId]);
 
-  const enrichedStates = data?.enrichedStates ?? [];
-  const clusterProfiles = data?.clusterProfiles ?? [];
+  const enrichedStates = selected.enrichedStates;
+  const clusterProfiles = selected.profiles;
 
   // Filtered state list
   const filteredStates = useMemo(() => {
@@ -80,12 +83,12 @@ export default function StateExplorer() {
     });
   }, [activeState, activeClusterProfile]);
 
-  if (isLoading) {
+  if (isLoading || selected.isExplorerLoading) {
     return <LoadingState message="Loading State/UT profiles..." />;
   }
 
-  if (error || !data || !activeState) {
-    return <ErrorState message={error || 'Failed to load data.'} onRetry={reload} />;
+  if (error || selected.explorerError || !selected.config || !activeState) {
+    return <ErrorState message={error || selected.explorerError || 'Failed to load data.'} onRetry={reload} />;
   }
 
   return (
@@ -121,7 +124,7 @@ export default function StateExplorer() {
               </div>
 
               {/* Cluster Filter Buttons */}
-              <div className="flex gap-1.5 pt-1">
+              <div className="flex flex-wrap gap-1.5 pt-1">
                 <button
                   onClick={() => setSelectedClusterFilter('all')}
                   className={`px-2.5 py-1 text-[11px] font-medium rounded ${
@@ -130,28 +133,13 @@ export default function StateExplorer() {
                       : 'bg-[var(--color-surface-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-tertiary)]'
                   }`}
                 >
-                  All (36)
+                  All ({enrichedStates.length})
                 </button>
-                <button
-                  onClick={() => setSelectedClusterFilter(0)}
-                  className={`px-2.5 py-1 text-[11px] font-medium rounded ${
-                    selectedClusterFilter === 0
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-[var(--color-surface-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-tertiary)]'
-                  }`}
-                >
-                  Cluster 0 (7)
-                </button>
-                <button
-                  onClick={() => setSelectedClusterFilter(1)}
-                  className={`px-2.5 py-1 text-[11px] font-medium rounded ${
-                    selectedClusterFilter === 1
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-[var(--color-surface-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-tertiary)]'
-                  }`}
-                >
-                  Cluster 1 (29)
-                </button>
+                {selected.profiles.map((profile) => (
+                  <button key={profile.Cluster} onClick={() => setSelectedClusterFilter(profile.Cluster)} className={`px-2.5 py-1 text-[11px] font-medium rounded ${selectedClusterFilter === profile.Cluster ? 'bg-blue-600 text-white' : 'bg-[var(--color-surface-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-tertiary)]'}`}>
+                    Cluster {profile.Cluster} ({profile.State_UT_Count})
+                  </button>
+                ))}
               </div>
             </div>
 

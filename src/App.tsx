@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './lib/themeContext';
 import { DataProvider } from './lib/dataContext';
+import { ClusterExplorerProvider } from './lib/clusterExplorerContext';
 import { AppLayout } from './components/layout/AppLayout';
 import { LoadingState } from './components/ui/LoadingState';
 
@@ -19,7 +20,8 @@ export function App() {
   return (
     <ThemeProvider>
       <DataProvider>
-        <BrowserRouter>
+        <ClusterExplorerProvider>
+          <BrowserRouter>
           <Suspense fallback={<LoadingState message="Loading module..." />}>
             <Routes>
               <Route element={<AppLayout />}>
@@ -36,7 +38,8 @@ export function App() {
               </Route>
             </Routes>
           </Suspense>
-        </BrowserRouter>
+          </BrowserRouter>
+        </ClusterExplorerProvider>
       </DataProvider>
     </ThemeProvider>
   );

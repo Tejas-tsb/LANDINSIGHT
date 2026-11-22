@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { ThemeToggle } from './ThemeToggle';
 import { NAV_ITEMS } from '../../lib/constants';
+import { ClusterConfigurationSelector } from '../ClusterConfigurationSelector';
 
 export function AppLayout() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -27,13 +28,14 @@ export function AppLayout() {
         }`}
       >
         {/* Header */}
-        <header className="sticky top-0 z-20 h-14 flex items-center justify-between px-6 bg-[var(--color-surface)] border-b border-[var(--color-border)]">
+        <header className="sticky top-0 z-20 h-14 flex items-center justify-between px-3 sm:px-6 bg-[var(--color-surface)] border-b border-[var(--color-border)]">
           <div>
             <h2 className="text-base font-semibold text-[var(--color-text-primary)]">
               {currentPage?.label ?? 'LANDINSIGHT'}
             </h2>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <ClusterConfigurationSelector />
             <ThemeToggle />
           </div>
         </header>

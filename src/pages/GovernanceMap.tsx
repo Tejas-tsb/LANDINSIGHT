@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, GeoJSON, useMap } from 'react-leaflet';
 import type { GeoJSON as LeafletGeoJSON, Layer, LeafletMouseEvent } from 'leaflet';
 import type { FeatureCollection, Feature, Geometry } from 'geojson';
 import { useData } from '../lib/dataContext';
+import { useSelectedClusterData } from '../lib/clusterExplorerContext';
 import { LoadingState } from '../components/ui/LoadingState';
 import { ErrorState } from '../components/ui/ErrorState';
 import { ClusterBadge } from '../components/ui/ClusterBadge';
@@ -75,14 +76,16 @@ function MapController({ center, zoom }: { center: [number, number]; zoom: numbe
 }
 
 export default function GovernanceMap() {
-  const { data, isLoading, error, reload } = useData();
+  const { isLoading, error, reload } = useData();
+  const selected = useSelectedClusterData();
   const [geoData, setGeoData] = useState<FeatureCollection | null>(null);
   const [geoError, setGeoError] = useState<string | null>(null);
   const [geoLoading, setGeoLoading] = useState(true);
 
   const [activeState, setActiveState] = useState<EnrichedStateData | null>(null);
-  const [filterCluster, setFilterCluster] = useState<'all' | 0 | 1>('all');
+  const [filterCluster, setFilterCluster] = useState<'all' | number>('all');
   const [hoveredStateName, setHoveredStateName] = useState<string | null>(null);
+  useEffect(() => { setFilterCluster('all'); }, [selected.selectedId]);
 
 
   // Load GeoJSON boundaries
@@ -105,30 +108,30 @@ export default function GovernanceMap() {
 
   // Quick lookup map: State_UT uppercase -> EnrichedStateData
   const stateLookup = useMemo(() => {
-    if (!data) return new Map<string, EnrichedStateData>();
+    if (!selected.config) return new Map<string, EnrichedStateData>();
     const map = new Map<string, EnrichedStateData>();
-    data.enrichedStates.forEach((s) => {
+    selected.enrichedStates.forEach((s) => {
       map.set(s.State_UT.trim().toUpperCase(), s);
     });
     return map;
-  }, [data]);
+  }, [selected.enrichedStates, selected.config]);
 
   // Set default active state on initial data load
   useEffect(() => {
-    if (data && !activeState && data.enrichedStates.length > 0) {
-      setActiveState(data.enrichedStates[0]);
+    if (selected.enrichedStates.length > 0) {
+      setActiveState((current) => selected.enrichedStates.find((state) => state.State_UT === current?.State_UT) ?? selected.enrichedStates[0]);
     }
-  }, [data, activeState]);
+  }, [selected.selectedId, selected.enrichedStates]);
 
-  if (isLoading || geoLoading) {
+  if (isLoading || selected.isExplorerLoading || geoLoading) {
     return <LoadingState message="Rendering interactive geospatial intelligence map..." />;
   }
 
-  if (error || geoError || !data || !geoData) {
+  if (error || selected.explorerError || geoError || !selected.config || !geoData) {
     return (
       <ErrorState
         title="Failed to load geospatial data"
-        message={error || geoError || 'Missing geospatial map files.'}
+        message={error || selected.explorerError || geoError || 'Missing geospatial map files.'}
         onRetry={reload}
       />
     );
@@ -226,11 +229,11 @@ export default function GovernanceMap() {
         <div>
           <h1 className="page-title">National Land Governance Map</h1>
           <p className="page-subtitle">
-            Authentic State/UT boundary choropleth colored by Model C (K=2) unsupervised K-Means clusters.
+            Authentic State/UT boundary choropleth colored by {selected.config.model} (K={selected.config.k}) cluster assignments.
           </p>
         </div>
         {/* Cluster Filter Controls */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <span className="text-xs font-semibold text-[var(--color-text-secondary)]">Show:</span>
           <div className="flex gap-1.5">
             <button
@@ -241,36 +244,14 @@ export default function GovernanceMap() {
                   : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] border border-[var(--color-border)] hover:bg-[var(--color-surface-tertiary)]'
               }`}
             >
-              All (36)
+              All ({selected.enrichedStates.length})
             </button>
-            <button
-              onClick={() => setFilterCluster(0)}
-              className={`px-3 py-1 text-xs rounded-md font-medium transition-colors ${
-                filterCluster === 0
-                  ? 'bg-blue-600 text-white shadow-sm'
-                  : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] border border-[var(--color-border)] hover:bg-[var(--color-surface-tertiary)]'
-              }`}
-            >
-              <span
-                className="inline-block w-2 h-2 rounded-full mr-1.5"
-                style={{ backgroundColor: CLUSTER_CONFIG[0].color }}
-              />
-              Cluster 0 (7)
-            </button>
-            <button
-              onClick={() => setFilterCluster(1)}
-              className={`px-3 py-1 text-xs rounded-md font-medium transition-colors ${
-                filterCluster === 1
-                  ? 'bg-blue-600 text-white shadow-sm'
-                  : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] border border-[var(--color-border)] hover:bg-[var(--color-surface-tertiary)]'
-              }`}
-            >
-              <span
-                className="inline-block w-2 h-2 rounded-full mr-1.5"
-                style={{ backgroundColor: CLUSTER_CONFIG[1].color }}
-              />
-              Cluster 1 (29)
-            </button>
+            {selected.profiles.map((profile) => (
+              <button key={profile.Cluster} onClick={() => setFilterCluster(profile.Cluster)} className={`px-3 py-1 text-xs rounded-md font-medium transition-colors ${filterCluster === profile.Cluster ? 'bg-blue-600 text-white shadow-sm' : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] border border-[var(--color-border)] hover:bg-[var(--color-surface-tertiary)]'}`}>
+                <span className="inline-block w-2 h-2 rounded-full mr-1.5" style={{ backgroundColor: CLUSTER_CONFIG[profile.Cluster as keyof typeof CLUSTER_CONFIG].color }} />
+                Cluster {profile.Cluster} ({profile.State_UT_Count})
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -285,24 +266,10 @@ export default function GovernanceMap() {
               Cluster Legend
             </span>
             <div className="space-y-1.5">
-              <div className="flex items-center gap-2">
-                <span
-                  className="w-3.5 h-3.5 rounded"
-                  style={{ backgroundColor: CLUSTER_CONFIG[0].color }}
-                />
-                <span className="text-[var(--color-text-secondary)] font-medium">
-                  {CLUSTER_CONFIG[0].displayName} (7 States/UTs, 19.4%)
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span
-                  className="w-3.5 h-3.5 rounded"
-                  style={{ backgroundColor: CLUSTER_CONFIG[1].color }}
-                />
-                <span className="text-[var(--color-text-secondary)] font-medium">
-                  {CLUSTER_CONFIG[1].displayName} (29 States/UTs, 80.6%)
-                </span>
-              </div>
+              {selected.profiles.map((profile) => {
+                const color = CLUSTER_CONFIG[profile.Cluster as keyof typeof CLUSTER_CONFIG].color;
+                return <div key={profile.Cluster} className="flex items-center gap-2"><span className="w-3.5 h-3.5 rounded" style={{ backgroundColor: color }} /><span className="text-[var(--color-text-secondary)] font-medium">Cluster {profile.Cluster} ({profile.State_UT_Count} States/UTs, {profile.Cluster_Percentage.toFixed(1)}%)</span></div>;
+              })}
             </div>
             <p className="text-[10px] text-[var(--color-text-tertiary)] pt-1 border-t border-[var(--color-border)]">
               Click any state polygon to inspect details.
@@ -324,7 +291,7 @@ export default function GovernanceMap() {
             />
             {geoData && (
               <GeoJSON
-                key={`geojson-${filterCluster}`}
+                key={`geojson-${selected.selectedId}-${filterCluster}`}
                 data={geoData}
                 style={styleFeature}
                 onEachFeature={onEachFeature}

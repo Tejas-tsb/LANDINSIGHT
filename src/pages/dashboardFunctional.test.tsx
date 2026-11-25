@@ -109,7 +109,7 @@ describe('Dashboard Functional Testing — All 9 Pages & Interactive Elements', 
   // 1. Executive Overview (Route: /)
   // =========================================================================
   describe('Page 1: Executive Overview (/)', () => {
-    it('renders national summary KPIs, active baseline badge, and observations', async () => {
+    it('renders the baseline overview without a KPI card row and keeps core analysis prominent', async () => {
       renderWithContext(<ExecutiveOverview />, { initialEntries: ['/'] });
 
       // Wait for data load
@@ -117,14 +117,26 @@ describe('Dashboard Functional Testing — All 9 Pages & Interactive Elements', 
         expect(screen.queryByText(/Loading governance intelligence dataset/i)).not.toBeInTheDocument();
       });
 
-      expect(screen.getByRole('heading', { level: 1, name: /Executive Governance Overview/i })).toBeInTheDocument();
-      expect(screen.getByText(/Active Baseline: Model C \(K=2\)/i)).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 1, name: 'Executive Overview' })).toBeInTheDocument();
+      expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
+      expect(screen.getByRole('combobox', { name: /cluster configuration/i })).toHaveValue('Model_C_K2');
 
-      // Verify KPI stat cards
-      expect(screen.getByText('Total States / UTs')).toBeInTheDocument();
-      expect(screen.getByText('36')).toBeInTheDocument();
-      expect(screen.getByText('Clustering Configuration')).toBeInTheDocument();
-      expect(screen.getByText('K = 2')).toBeInTheDocument();
+      // The redundant summary-card row is removed; scope remains available in the analysis.
+      expect(screen.queryByText('Total States / UTs')).not.toBeInTheDocument();
+      expect(screen.queryByText('Clustering Configuration')).not.toBeInTheDocument();
+      expect(screen.queryByText('Largest Cluster Size')).not.toBeInTheDocument();
+      expect(screen.queryByText('Smallest Cluster Size')).not.toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: /Cluster Distribution/i })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: /Core Governance Indicator Comparison/i })).toBeInTheDocument();
+      expect(screen.queryByText(/Smallest-cluster note/i)).not.toBeInTheDocument();
+      const comparisonCard = screen.getByRole('heading', { name: /Core Governance Indicator Comparison/i }).closest('.card');
+      expect(comparisonCard?.querySelector('[style*="height: 280px"]')).toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: /Digitally Signed RoR/i })).toBeInTheDocument();
+      expect(screen.getByText(/Largest: 82\.8 pp/)).toBeInTheDocument();
+      expect(screen.getByText(/Map–RoR: 52\.4 pp · ULPIN: 57\.7 pp/i)).toBeInTheDocument();
+      expect(screen.getByText(/Online Mutation gap: 71\.9 pp/i)).toBeInTheDocument();
+      expect(screen.getByText(/Cluster 0 averages 14\.3% and Cluster 1 averages 86\.2%/i)).toBeInTheDocument();
+      fireEvent.click(screen.getByRole('button', { name: /View Specifications/i }));
       expect(screen.getByText('Silhouette Score')).toBeInTheDocument();
       expect(screen.getByText('0.4076')).toBeInTheDocument();
       expect(screen.getByText('Davies-Bouldin Index')).toBeInTheDocument();
@@ -136,6 +148,53 @@ describe('Dashboard Functional Testing — All 9 Pages & Interactive Elements', 
 
       // Verify Methodological Guardrails
       expect(screen.getByText(/Methodological Guardrails & Limitations/i)).toBeInTheDocument();
+    });
+
+    it('dynamically updates overview findings, metrics, and distribution across all 4 cluster configurations', async () => {
+      renderWithContext(<ExecutiveOverview />, { initialEntries: ['/'] });
+
+      await waitFor(() => {
+        expect(screen.queryByText(/Loading governance intelligence dataset/i)).not.toBeInTheDocument();
+      });
+
+      const selector = screen.getByRole('combobox', { name: /cluster configuration/i });
+      expect(selector).toBeInTheDocument();
+
+      // Test Model B K=3
+      fireEvent.change(selector, { target: { value: 'Model_B_K3' } });
+      await waitFor(() => {
+        expect(selector).toHaveValue('Model_B_K3');
+        expect(selector).toHaveValue('Model_B_K3');
+        expect(screen.getAllByRole('heading', { name: /Online Mutation Application/i }).length).toBeGreaterThan(0);
+        expect(screen.getByText(/Largest: 100\.0 pp/)).toBeInTheDocument();
+        expect(screen.queryByText(/Map–RoR: 52\.4 pp · ULPIN: 57\.7 pp/i)).not.toBeInTheDocument();
+        expect(screen.getByText(/Online Mutation gap: 100\.0 pp/i)).toBeInTheDocument();
+        expect(screen.queryByText(/Cluster 0 averages 14\.3% and Cluster 1 averages 86\.2%/i)).not.toBeInTheDocument();
+      });
+
+      fireEvent.change(selector, { target: { value: 'Model_B_K4' } });
+      await waitFor(() => {
+        expect(selector).toHaveValue('Model_B_K4');
+        expect(selector).toHaveValue('Model_B_K4');
+      });
+
+      // Test Model B K=5 without a repeated smallest-cluster warning banner.
+      fireEvent.change(selector, { target: { value: 'Model_B_K5' } });
+      await waitFor(() => {
+        expect(selector).toHaveValue('Model_B_K5');
+        expect(selector).toHaveValue('Model_B_K5');
+        expect(screen.queryByText(/Smallest-cluster note/i)).not.toBeInTheDocument();
+        expect(screen.getByText(/Cluster 1 contains 2 \(5\.6%\)/i)).toBeInTheDocument();
+        expect(screen.getAllByRole('heading', { name: /Online RoR Download/i }).length).toBeGreaterThan(0);
+        expect(screen.getByText(/Largest: 100\.0 pp/)).toBeInTheDocument();
+      });
+
+      // Switch back to Model C K=2 (Default)
+      fireEvent.change(selector, { target: { value: 'Model_C_K2' } });
+      await waitFor(() => {
+        expect(selector).toHaveValue('Model_C_K2');
+        expect(selector).toHaveValue('Model_C_K2');
+      });
     });
   });
 
@@ -150,7 +209,7 @@ describe('Dashboard Functional Testing — All 9 Pages & Interactive Elements', 
         expect(screen.queryByText(/Rendering interactive geospatial intelligence map/i)).not.toBeInTheDocument();
       });
 
-      expect(screen.getByRole('heading', { level: 1, name: /National Land Governance Map/i })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 1, name: 'Governance Map' })).toBeInTheDocument();
 
       // Verify Cluster Filter Controls
       expect(screen.getByRole('button', { name: /All \(36\)/i })).toBeInTheDocument();
@@ -185,7 +244,7 @@ describe('Dashboard Functional Testing — All 9 Pages & Interactive Elements', 
         expect(screen.queryByText(/Loading State\/UT profiles/i)).not.toBeInTheDocument();
       });
 
-      expect(screen.getByRole('heading', { level: 1, name: /State \/ UT Profile Explorer/i })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 1, name: 'State/UT Explorer' })).toBeInTheDocument();
 
       // Search bar interaction
       const searchInput = screen.getByPlaceholderText(/Search 36 States and UTs/i);
@@ -228,15 +287,23 @@ describe('Dashboard Functional Testing — All 9 Pages & Interactive Elements', 
         expect(screen.queryByText(/Loading cluster profile intelligence/i)).not.toBeInTheDocument();
       });
 
-      expect(screen.getByRole('heading', { level: 1, name: /Cluster Intelligence & Profiles/i })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 1, name: 'Cluster Intelligence' })).toBeInTheDocument();
 
       // Check Cluster 0 Profile Card
-      expect(screen.getByText(/Cluster 0 — Foundation & Nascent Digital Infrastructure/i)).toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: 'Cluster 0' })).toBeInTheDocument();
       expect(screen.getByText(/7 States\/UTs \(19\.4%\)/i)).toBeInTheDocument();
 
       // Check Cluster 1 Profile Card
-      expect(screen.getByText(/Cluster 1 — High Digitization & Automated Services/i)).toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: 'Cluster 1' })).toBeInTheDocument();
       expect(screen.getByText(/29 States\/UTs \(80\.6%\)/i)).toBeInTheDocument();
+
+      // Check member expansion toggle for Cluster 1 (29 members > 8 limit)
+      const expandBtn = screen.getByRole('button', { name: /\+21 more/i });
+      expect(expandBtn).toBeInTheDocument();
+      fireEvent.click(expandBtn);
+      expect(screen.getByRole('button', { name: /Show less/i })).toBeInTheDocument();
+      fireEvent.click(screen.getByRole('button', { name: /Show less/i }));
+      expect(screen.getByRole('button', { name: /\+21 more/i })).toBeInTheDocument();
 
       // Check Comparative Chart Headers
       expect(screen.getByText(/Cadastral & Spatial Coverage \(% Means\)/i)).toBeInTheDocument();
@@ -246,6 +313,59 @@ describe('Dashboard Functional Testing — All 9 Pages & Interactive Elements', 
       expect(screen.getByText(/Comprehensive Cluster Means & Differential Breakdown/i)).toBeInTheDocument();
       expect(screen.getByText('Difference (C1 - C0)')).toBeInTheDocument();
       expect(screen.getByText('Absolute Gap')).toBeInTheDocument();
+
+      // Test Table collapse / expand toggle
+      const collapseTableBtn = screen.getByRole('button', { name: /Collapse Table/i });
+      fireEvent.click(collapseTableBtn);
+      expect(screen.queryByText('Difference (C1 - C0)')).not.toBeInTheDocument();
+      const expandTableBtn = screen.getByRole('button', { name: /Expand Full Matrix/i });
+      fireEvent.click(expandTableBtn);
+      expect(screen.getByText('Difference (C1 - C0)')).toBeInTheDocument();
+    });
+
+    it('dynamically adapts cluster profiles, headers, and spread metrics across all 4 configurations', async () => {
+      renderWithContext(<ClusterIntelligence />, { initialEntries: ['/clusters'] });
+
+      await waitFor(() => {
+        expect(screen.queryByText(/Loading cluster profile intelligence/i)).not.toBeInTheDocument();
+      });
+
+      const selector = screen.getByRole('combobox', { name: /cluster configuration/i });
+      expect(selector).toBeInTheDocument();
+
+      // 1. Switch to Model B K=3
+      fireEvent.change(selector, { target: { value: 'Model_B_K3' } });
+      await waitFor(() => {
+        expect(selector).toHaveValue('Model_B_K3');
+        expect(screen.getByText('Spread (Max - Min)')).toBeInTheDocument();
+        expect(screen.queryByText('Difference (C1 - C0)')).not.toBeInTheDocument();
+      });
+
+      // 2. Switch to Model B K=4
+      fireEvent.change(selector, { target: { value: 'Model_B_K4' } });
+      await waitFor(() => {
+        expect(selector).toHaveValue('Model_B_K4');
+        expect(screen.getByText('Spread (Max - Min)')).toBeInTheDocument();
+        expect(screen.queryByText('Difference (C1 - C0)')).not.toBeInTheDocument();
+      });
+
+      // 3. Switch to Model B K=5 without a repeated warning banner.
+      fireEvent.change(selector, { target: { value: 'Model_B_K5' } });
+      await waitFor(() => {
+        expect(selector).toHaveValue('Model_B_K5');
+        expect(screen.queryByText(/Smallest-cluster note:/i)).not.toBeInTheDocument();
+        expect(screen.getByText('Spread (Max - Min)')).toBeInTheDocument();
+        expect(screen.queryByText('Difference (C1 - C0)')).not.toBeInTheDocument();
+      });
+
+      // 4. Switch back to Model C K=2 (Default Baseline)
+      fireEvent.change(selector, { target: { value: 'Model_C_K2' } });
+      await waitFor(() => {
+        expect(selector).toHaveValue('Model_C_K2');
+        expect(screen.getByText('Difference (C1 - C0)')).toBeInTheDocument();
+        expect(screen.getByText('Absolute Gap')).toBeInTheDocument();
+        expect(screen.queryByText(/Smallest-cluster note:/i)).not.toBeInTheDocument();
+      });
     });
   });
 
@@ -260,7 +380,13 @@ describe('Dashboard Functional Testing — All 9 Pages & Interactive Elements', 
         expect(screen.queryByText(/Loading indicator analytics/i)).not.toBeInTheDocument();
       });
 
-      expect(screen.getByRole('heading', { level: 1, name: /Indicator Analytics & Distributions/i })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 1, name: 'Indicator Analytics' })).toBeInTheDocument();
+      expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
+      expect(screen.getByText('States 1–12 of 36')).toBeInTheDocument();
+      fireEvent.click(screen.getByRole('button', { name: /Next indicator chart page/i }));
+      expect(screen.getByText('States 13–24 of 36')).toBeInTheDocument();
+      fireEvent.click(screen.getByRole('button', { name: /Previous indicator chart page/i }));
+      expect(screen.getByText('States 1–12 of 36')).toBeInTheDocument();
 
       // Check Category Filter Buttons
       const allCatBtn = screen.getByRole('button', { name: /All \(13\)/i });
@@ -282,14 +408,100 @@ describe('Dashboard Functional Testing — All 9 Pages & Interactive Elements', 
 
       // Sort Toggle
       const sortBtn = screen.getByRole('button', { name: /Sort:/i });
-      expect(sortBtn).toHaveTextContent(/High to Low/i);
-      fireEvent.click(sortBtn);
       expect(sortBtn).toHaveTextContent(/Low to High/i);
+      fireEvent.click(sortBtn);
+      expect(sortBtn).toHaveTextContent(/High to Low/i);
 
       // Summary KPI stats for active indicator
       expect(screen.getByText('National Mean')).toBeInTheDocument();
       expect(screen.getByText('Highest Coverage')).toBeInTheDocument();
       expect(screen.getByText('Lowest Coverage')).toBeInTheDocument();
+    });
+
+    it('supports dynamic cluster configuration switching, 36-state table view, and fixed descriptive analytical bands', async () => {
+      renderWithContext(<IndicatorAnalytics />, { initialEntries: ['/indicators'] });
+
+      await waitFor(() => {
+        expect(screen.queryByText(/Loading indicator analytics/i)).not.toBeInTheDocument();
+      });
+
+      // Verify Fixed Descriptive Analytical Bands are present
+      expect(screen.getByRole('heading', { name: /Fixed Descriptive Analytical Bands/i })).toBeInTheDocument();
+      expect(screen.getByText(/Descriptive statistical intervals across 36 States\/UTs/i)).toBeInTheDocument();
+      expect(screen.getByText('High Saturation / Advanced Progress')).toBeInTheDocument();
+      expect(screen.getByText('Substantial Progress')).toBeInTheDocument();
+      expect(screen.getByText('Developing / Intermediate Progress')).toBeInTheDocument();
+      expect(screen.getByText('Nascent Progress')).toBeInTheDocument();
+
+      // Verify Cluster Configuration Selector exists and defaults to Model C K=2
+      const configSelector = screen.getByRole('combobox', { name: /cluster configuration/i });
+      expect(configSelector).toBeInTheDocument();
+      expect(screen.getByText(/Cluster 0 Mean/i)).toBeInTheDocument();
+      expect(screen.getByText(/Cluster 1 Mean/i)).toBeInTheDocument();
+
+      // Switch to Model B K=3
+      fireEvent.change(configSelector, { target: { value: 'Model_B_K3' } });
+      await waitFor(() => {
+        expect(screen.getByText(/Cluster 2 Mean/i)).toBeInTheDocument();
+      });
+
+      // Switch to Model B K=4
+      fireEvent.change(configSelector, { target: { value: 'Model_B_K4' } });
+      await waitFor(() => {
+        expect(screen.getByText(/Cluster 3 Mean/i)).toBeInTheDocument();
+      });
+
+      // Switch to Model B K=5
+      fireEvent.change(configSelector, { target: { value: 'Model_B_K5' } });
+      await waitFor(() => {
+        expect(screen.getByText(/Cluster 4 Mean/i)).toBeInTheDocument();
+      });
+
+      // Switch back to Model C K=2 (Default Baseline)
+      fireEvent.change(configSelector, { target: { value: 'Model_C_K2' } });
+      await waitFor(() => {
+        expect(screen.queryByText(/Cluster 2 Mean/i)).not.toBeInTheDocument();
+      });
+
+      // Switch to 36-State Table View
+      const tableViewBtn = screen.getByRole('button', { name: /36-State Table/i });
+      fireEvent.click(tableViewBtn);
+      expect(screen.getByText(/36-State Performance & Ranking Matrix/i)).toBeInTheDocument();
+      expect(screen.getByRole('columnheader', { name: /State \/ Union Territory/i })).toBeInTheDocument();
+      expect(screen.getByRole('columnheader', { name: /Descriptive Classification/i })).toBeInTheDocument();
+
+      // Switch back to Chart View
+      const chartViewBtn = screen.getByRole('button', { name: /Chart View/i });
+      fireEvent.click(chartViewBtn);
+      expect(screen.getByRole('heading', { name: /Fixed Descriptive Analytical Bands/i })).toBeInTheDocument();
+    });
+
+    it('shows source values and active configuration assignments for selected percentage and binary indicators', async () => {
+      renderWithContext(<IndicatorAnalytics />, { initialEntries: ['/indicators'] });
+      await waitFor(() => expect(screen.getByRole('combobox', { name: /cluster configuration/i })).toHaveValue('Model_C_K2'));
+
+      fireEvent.click(screen.getByRole('button', { name: /36-State Table/i }));
+      const selector = screen.getByRole('combobox', { name: /cluster configuration/i });
+      const expectedBiharClusters: Record<string, string> = {
+        Model_C_K2: 'Cluster 1',
+        Model_B_K3: 'Cluster 0',
+        Model_B_K4: 'Cluster 0',
+        Model_B_K5: 'Cluster 0',
+      };
+
+      for (const configId of ['Model_C_K2', 'Model_B_K3', 'Model_B_K4', 'Model_B_K5']) {
+        fireEvent.change(selector, { target: { value: configId } });
+        await waitFor(() => expect(selector).toHaveValue(configId));
+
+        const biharRow = screen.getByRole('row', { name: /Bihar/ });
+        expect(within(biharRow).getByText('100.00%')).toBeInTheDocument();
+        expect(within(biharRow).getByText(expectedBiharClusters[configId])).toBeInTheDocument();
+
+        fireEvent.click(screen.getByRole('button', { name: /RoR Download/i }));
+        expect(screen.getByRole('heading', { name: /36-State Performance & Ranking Matrix — Online RoR Download/i })).toBeInTheDocument();
+        expect(within(screen.getByRole('row', { name: /Bihar/ })).getByText('1 (Active)')).toBeInTheDocument();
+        fireEvent.click(screen.getByRole('button', { name: /Map Digitization/i }));
+      }
     });
   });
 
@@ -304,7 +516,7 @@ describe('Dashboard Functional Testing — All 9 Pages & Interactive Elements', 
         expect(screen.queryByText(/Loading state comparison engine/i)).not.toBeInTheDocument();
       });
 
-      expect(screen.getByRole('heading', { level: 1, name: /State \/ UT Multi-Entity Comparison/i })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 1, name: 'State Comparison' })).toBeInTheDocument();
 
       // Default comparison contains Gujarat and Nagaland
       expect(screen.getAllByText('Gujarat').length).toBeGreaterThanOrEqual(1);
@@ -339,7 +551,7 @@ describe('Dashboard Functional Testing — All 9 Pages & Interactive Elements', 
         expect(screen.queryByText(/Loading governance gap analysis/i)).not.toBeInTheDocument();
       });
 
-      expect(screen.getByRole('heading', { level: 1, name: /Digital Governance Gap Analysis/i })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 1, name: 'Gap Analysis' })).toBeInTheDocument();
 
       // Rank 1 Top Card
       expect(screen.getByText(/Rank #1 Observed Divergence/i)).toBeInTheDocument();
@@ -365,15 +577,18 @@ describe('Dashboard Functional Testing — All 9 Pages & Interactive Elements', 
   // 8. ML Model Insights (Route: /models)
   // =========================================================================
   describe('Page 8: ML Model Insights (/models)', () => {
-    it('displays evaluation curves, PCA 2D scatter figure, and 15-run evaluation table', async () => {
+    it('displays evaluation curves, baseline PCA projection, and supplied model/K evaluation records', async () => {
       renderWithContext(<MLModelInsights />, { initialEntries: ['/models'] });
 
       await waitFor(() => {
         expect(screen.queryByText(/Loading ML model evaluation metrics/i)).not.toBeInTheDocument();
       });
 
-      expect(screen.getByRole('heading', { level: 1, name: /Unsupervised ML Model Insights/i })).toBeInTheDocument();
-      expect(screen.getByText(/Selected: Model C \(K=2\)/i)).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 1, name: 'ML Model Insights' })).toBeInTheDocument();
+      expect(screen.getByRole('combobox', { name: /cluster configuration/i })).toHaveValue('Model_C_K2');
+      expect(screen.queryByText(/K-Means groups States\/UTs with similar observed indicator patterns/i)).not.toBeInTheDocument();
+      expect(screen.getByText(/K-Means groups observed patterns; it does not predict outcomes or assign official rankings/i)).toBeInTheDocument();
+      expect(screen.getByText(/The preserved notebook evaluates 15 Model\/K records/i)).toBeInTheDocument();
 
       // Architecture cards
       expect(screen.getByText(/Model A — Baseline/i)).toBeInTheDocument();
@@ -386,10 +601,13 @@ describe('Dashboard Functional Testing — All 9 Pages & Interactive Elements', 
 
       // PCA Section
       expect(screen.getByText(/Principal Component Analysis \(PCA\) 2D Projection/i)).toBeInTheDocument();
+      expect(screen.getByText(/Baseline projection · Model C \(K=2\)/i)).toBeInTheDocument();
+      expect(screen.getByText('Cluster 0 (7)')).toBeInTheDocument();
+      expect(screen.getByText('Cluster 1 (29)')).toBeInTheDocument();
       expect(screen.getByAltText(/PCA Cluster Visualization of Digital Land Governance/i)).toBeInTheDocument();
 
       // Full Model Evaluation Matrix Table
-      expect(screen.getByText(/Full Model Evaluation Matrix \(15 Experimental Runs\)/i)).toBeInTheDocument();
+      expect(screen.getByText(/Model Evaluation Matrix \(15 model\/K records\)/i)).toBeInTheDocument();
     });
   });
 
@@ -404,7 +622,8 @@ describe('Dashboard Functional Testing — All 9 Pages & Interactive Elements', 
         expect(screen.queryByText(/Loading download repository/i)).not.toBeInTheDocument();
       });
 
-      expect(screen.getByRole('heading', { level: 1, name: /Reports, Datasets & Visual Exports/i })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 1, name: 'Reports & Downloads' })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 2, name: /Reports, Datasets & Visual Exports/i })).toBeInTheDocument();
 
       // 5 CSV cards
       expect(screen.getByText('Cleaned_Digital_Land_Governance.csv')).toBeInTheDocument();
@@ -440,12 +659,19 @@ describe('Dashboard Functional Testing — All 9 Pages & Interactive Elements', 
 
       const themeBtn = screen.getByTitle(/Switch to (dark|light) mode/i);
       expect(themeBtn).toBeInTheDocument();
+      const sidebar = document.querySelector('#primary-navigation') as HTMLElement;
+      expect(sidebar.className).toContain('bg-[var(--color-sidebar-bg)]');
+      expect(screen.getByText('LANDINSIGHT').className).toContain('text-[var(--color-text-primary)]');
+      const configuration = screen.getByRole('combobox', { name: /cluster configuration/i });
 
       const initialDark = document.documentElement.classList.contains('dark');
+      expect(configuration.style.colorScheme).toBe(initialDark ? 'dark' : 'light');
       fireEvent.click(themeBtn);
 
       const updatedDark = document.documentElement.classList.contains('dark');
       expect(updatedDark).toBe(!initialDark);
+      expect(document.documentElement.classList.contains('dark')).toBe(updatedDark);
+      expect(configuration.style.colorScheme).toBe(updatedDark ? 'dark' : 'light');
       expect(localStorage.getItem('landinsight-theme')).toBe(updatedDark ? 'dark' : 'light');
     });
 
@@ -460,23 +686,47 @@ describe('Dashboard Functional Testing — All 9 Pages & Interactive Elements', 
       expect(collapseBtn).toBeInTheDocument();
 
       // Initially expanded (ml-60)
-      const mainWrapper = document.querySelector('.ml-60');
+      const mainWrapper = document.querySelector('[class*="lg:ml-60"]');
       expect(mainWrapper).toBeInTheDocument();
 
       // Click collapse
       fireEvent.click(collapseBtn);
 
       // Now collapsed (ml-16)
-      const collapsedWrapper = document.querySelector('.ml-16');
+      const collapsedWrapper = document.querySelector('[class*="lg:ml-16"]');
       expect(collapsedWrapper).toBeInTheDocument();
+    });
+
+    it('opens the mobile navigation drawer and closes it after selecting a page', async () => {
+      renderWithContext(<ExecutiveOverview />, { initialEntries: ['/'] });
+      await waitFor(() => {
+        expect(screen.queryByText(/Loading governance intelligence dataset/i)).not.toBeInTheDocument();
+      });
+
+      fireEvent.click(screen.getByRole('button', { name: /Open navigation menu/i }));
+      expect(screen.getAllByRole('button', { name: /Close navigation menu/i })).toHaveLength(2);
+      const backdrop = document.querySelector<HTMLButtonElement>('button.fixed.inset-0[aria-label="Close navigation menu"]');
+      expect(backdrop).not.toBeNull();
+      fireEvent.click(backdrop!);
+      expect(screen.getByRole('button', { name: /Open navigation menu/i })).toHaveAttribute('aria-expanded', 'false');
+
+      fireEvent.click(screen.getByRole('button', { name: /Open navigation menu/i }));
+      const primaryNav = screen.getByRole('navigation', { name: /Primary navigation/i });
+      fireEvent.click(within(primaryNav).getByRole('link', { name: /Governance Map/i }));
+
+      await waitFor(() => {
+        expect(screen.getByRole('heading', { level: 1, name: 'Governance Map' })).toBeInTheDocument();
+        expect(screen.queryByRole('button', { name: /Close navigation menu/i })).not.toBeInTheDocument();
+      });
     });
 
     it('supports responsive viewport dimensions without crashing', async () => {
       const viewports = [
         { width: 1440, height: 900, name: 'Desktop' },
-        { width: 1280, height: 800, name: 'Laptop' },
+        { width: 1024, height: 768, name: 'Small desktop / tablet' },
         { width: 768, height: 1024, name: 'Tablet' },
         { width: 390, height: 844, name: 'Mobile' },
+        { width: 360, height: 800, name: 'Small mobile' },
       ];
 
       for (const vp of viewports) {
@@ -486,7 +736,9 @@ describe('Dashboard Functional Testing — All 9 Pages & Interactive Elements', 
 
         const { unmount } = renderWithContext(<ExecutiveOverview />, { initialEntries: ['/'] });
         await waitFor(() => {
-          expect(screen.getByText('36')).toBeInTheDocument();
+          expect(screen.getByRole('heading', { level: 1, name: 'Executive Overview' })).toBeInTheDocument();
+          expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
+          expect(screen.queryByText('Total States / UTs')).not.toBeInTheDocument();
         });
         unmount();
       }

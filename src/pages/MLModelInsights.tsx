@@ -10,9 +10,6 @@ import {
   RECHARTS_TOOLTIP_PROPS,
 } from '../lib/constants';
 import {
-  Brain,
-  Layers,
-  CheckCircle,
   HelpCircle,
   TrendingDown,
   Activity,
@@ -78,36 +75,8 @@ export default function MLModelInsights() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-[var(--color-border)]">
-        <div>
-          <h1 className="page-title">Unsupervised ML Model Insights</h1>
-          <p className="page-subtitle">
-            Feature engineering, hyperparameter evaluation across K=2..6, and PCA 2D projection analysis.
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-            <CheckCircle size={14} />
-            Selected: {selectedConfig.model} (K={selectedConfig.k})
-          </span>
-        </div>
-      </div>
-
       {/* Selected Model Performance Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        <StatCard
-          label="Selected Model"
-          value={selectedConfig.model}
-          subtitle={`${selectedConfig.featureCount} selected features`}
-          icon={<Brain size={20} className="text-blue-600" />}
-        />
-        <StatCard
-          label="Selected K"
-          value={`K = ${selectedConfig.k}`}
-          subtitle={`${selectedConfig.k} cluster groups`}
-          icon={<Layers size={20} className="text-blue-600" />}
-        />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <StatCard
           label="Silhouette Score"
           value={selectedConfig.silhouetteScore.toFixed(4)}
@@ -117,7 +86,7 @@ export default function MLModelInsights() {
         <StatCard
           label="Davies-Bouldin Index"
           value={selectedConfig.daviesBouldinIndex.toFixed(4)}
-          subtitle="Cluster scatter-to-separation ratio (lower is superior)"
+          subtitle="Lower can indicate tighter, better-separated groups in this analysis"
           icon={<TrendingDown size={20} className="text-emerald-600" />}
         />
         <StatCard
@@ -191,7 +160,7 @@ export default function MLModelInsights() {
               <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">
                 Silhouette Score Trajectory (K = 2..6)
               </h3>
-              <p className="text-xs text-[var(--color-text-secondary)]">Higher score indicates superior cluster cohesion and separation</p>
+              <p className="text-xs text-[var(--color-text-secondary)]">Higher values indicate better separation for this partition; they do not establish a universally best model.</p>
             </div>
           </div>
           <div className="card-body">
@@ -221,7 +190,7 @@ export default function MLModelInsights() {
               <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">
                 Davies-Bouldin Index Trajectory (K = 2..6)
               </h3>
-              <p className="text-xs text-[var(--color-text-secondary)]">Lower score indicates tighter, better-separated clusters</p>
+              <p className="text-xs text-[var(--color-text-secondary)]">Lower values indicate tighter, better-separated groups within a comparable feature space.</p>
             </div>
           </div>
           <div className="card-body">
@@ -244,6 +213,10 @@ export default function MLModelInsights() {
           </div>
         </div>
       </div>
+      <p className="text-xs text-[var(--color-text-tertiary)]">
+        Silhouette, Davies-Bouldin, WCSS, and ARI describe different aspects of the clustering results. They depend on K, feature selection,
+        and the tested data, so no single metric establishes a universally superior configuration.
+      </p>
 
       {/* PCA Projection Visualization and Analytical Notice */}
       <div className="card overflow-hidden">
@@ -258,20 +231,20 @@ export default function MLModelInsights() {
         <div className="card-body grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           {/* PCA Image Asset */}
           <div className="lg:col-span-8 rounded-lg overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface-secondary)] p-3 shadow-inner flex flex-col items-center">
-            <div className="w-full flex items-center justify-between pb-2 mb-2 border-b border-[var(--color-border)] text-xs text-[var(--color-text-secondary)]">
-              <span className="font-semibold text-[var(--color-text-primary)]">2D Orthogonal Projection</span>
+            <div className="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-2 mb-2 border-b border-[var(--color-border)] text-xs text-[var(--color-text-secondary)]">
+              <span className="font-semibold text-[var(--color-text-primary)]">Baseline projection · Model C (K=2)</span>
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1.5">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#2563EB]" />
-                  <span>Cluster 0 ({selected.config?.clusterDistribution['0'] ?? 0})</span>
+                  <span>Cluster 0 (7)</span>
                 </span>
                 <span className="flex items-center gap-1.5">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]" />
-                  <span>Cluster 1 ({selected.config?.clusterDistribution['1'] ?? 0})</span>
+                  <span>Cluster 1 (29)</span>
                 </span>
               </div>
             </div>
-            <div className="w-full bg-slate-900/60 dark:bg-slate-950/80 rounded border border-[var(--color-border)] p-1.5 flex justify-center">
+            <div className="w-full bg-[var(--color-surface-secondary)] rounded border border-[var(--color-border)] p-1.5 flex justify-center">
               <img
                 src={ASSET_PATHS.pcaVisualization}
                 alt="PCA Cluster Visualization of Digital Land Governance"
@@ -302,7 +275,7 @@ export default function MLModelInsights() {
                 <HelpCircle size={14} /> Critical Mathematical Distinctions
               </h4>
               <p>
-                K-Means clustering was executed in the <strong>full 13-dimensional standardized space</strong>, NOT in this 2D PCA plane.
+                This figure shows the baseline Model C (K=2) assignments projected into two dimensions. K-Means clustering was executed in the <strong>full 13-dimensional standardized space</strong>, not in this PCA plane.
               </p>
               <p className="mt-1">
                 The PCA plot serves as an orthogonal visual projection to verify cluster separability; apparent proximity in 2D does not reflect the total 13-dimensional Euclidean distance.
@@ -316,8 +289,11 @@ export default function MLModelInsights() {
       <div className="card">
         <div className="card-header">
           <h2 className="text-sm font-semibold text-[var(--color-text-primary)]">
-            Full Model Evaluation Matrix (15 Experimental Runs)
+            Model Evaluation Matrix (15 model/K records)
           </h2>
+          <p className="text-xs text-[var(--color-text-secondary)] mt-1">
+            The preserved notebook evaluates 15 Model/K records (K=2–6); K=7 and K=8 results are absent from the available artifacts. The dashboard uses Model C (K=2) and Model B (K=3, 4, 5). K-Means groups observed patterns; it does not predict outcomes or assign official rankings.
+          </p>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">

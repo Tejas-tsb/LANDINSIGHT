@@ -96,9 +96,8 @@ export default function StateExplorer() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-[var(--color-border)]">
         <div>
-          <h1 className="page-title">State / UT Profile Explorer</h1>
           <p className="page-subtitle">
-            Inspect individual governance records, spatial digitization coverage, and benchmark against cluster averages.
+            Compare a State/UT’s indicators with its assigned cluster.
           </p>
         </div>
       </div>
@@ -205,7 +204,7 @@ export default function StateExplorer() {
               <div className="text-right">
                 <span className="text-[11px] text-[var(--color-text-tertiary)] block">Cluster Baseline</span>
                 <span className="text-xs font-semibold text-blue-600">
-                  {CLUSTER_CONFIG[activeState.Cluster as keyof typeof CLUSTER_CONFIG].displayName} ({activeState.Cluster_Percentage.toFixed(1)}% of India)
+                  {CLUSTER_CONFIG[activeState.Cluster as keyof typeof CLUSTER_CONFIG].displayName} ({activeState.Cluster_Percentage.toFixed(1)}% of dataset)
                 </span>
               </div>
             </div>

@@ -15,11 +15,11 @@
     --color-text-inverse: #ffffff;
     --color-accent: #2563EB;
     --color-accent-hover: #1D4ED8;
-    --color-sidebar-bg: #0F2440;
-    --color-sidebar-text: #CBD5E1;
-    --color-sidebar-text-active: #FFFFFF;
-    --color-sidebar-item-hover: rgba(255, 255, 255, 0.08);
-    --color-sidebar-item-active: rgba(59, 130, 246, 0.2);
+    --color-sidebar-bg: #f8fafc;
+    --color-sidebar-text: #475569;
+    --color-sidebar-text-active: #0f172a;
+    --color-sidebar-item-hover: rgba(15, 23, 42, 0.06);
+    --color-sidebar-item-active: #dbeafe;
   }
 
   .dark {
@@ -69,6 +69,45 @@
   ::-webkit-scrollbar-thumb:hover {
     background: var(--color-text-tertiary);
   }
+}
+
+/* Leaflet controls and popups follow the same theme as the dashboard chrome. */
+.leaflet-container {
+  color: var(--color-text-primary);
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip,
+.leaflet-tooltip {
+  color: var(--color-text-primary) !important;
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+}
+
+.leaflet-popup-content {
+  color: var(--color-text-primary) !important;
+}
+
+.leaflet-bar,
+.leaflet-bar a,
+.leaflet-bar a:hover,
+.leaflet-control-layers {
+  color: var(--color-text-primary) !important;
+  background-color: var(--color-surface) !important;
+  border-color: var(--color-border) !important;
+}
+
+.leaflet-container .leaflet-bar a:hover {
+  background-color: var(--color-surface-tertiary) !important;
+}
+
+.leaflet-control-attribution {
+  color: var(--color-text-secondary) !important;
+  background-color: color-mix(in srgb, var(--color-surface) 92%, transparent) !important;
+}
+
+.leaflet-control-attribution a {
+  color: var(--color-accent) !important;
 }
 
 .card {

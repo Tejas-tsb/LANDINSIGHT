@@ -119,11 +119,8 @@ export default function StateComparison() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-[var(--color-border)]">
         <div>
-          <h1 className="page-title">State / UT Multi-Entity Comparison</h1>
-
           <p className="page-subtitle">
-            Compare up to 4 States and UTs side-by-side across{' '}
-            {selected.config.featureCount} {selected.config.model} features.
+            Compare up to four States/UTs across {selected.config.model} indicators.
           </p>
         </div>
       </div>

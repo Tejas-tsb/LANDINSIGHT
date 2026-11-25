@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { MapContainer, TileLayer, GeoJSON, useMap } from 'react-leaflet';
-import type { GeoJSON as LeafletGeoJSON, Layer, LeafletMouseEvent } from 'leaflet';
+import type { Layer } from 'leaflet';
 import type { FeatureCollection, Feature, Geometry } from 'geojson';
 import { useData } from '../lib/dataContext';
 import { useSelectedClusterData } from '../lib/clusterExplorerContext';
@@ -8,61 +8,13 @@ import { LoadingState } from '../components/ui/LoadingState';
 import { ErrorState } from '../components/ui/ErrorState';
 import { ClusterBadge } from '../components/ui/ClusterBadge';
 import { CLUSTER_CONFIG, INDICATOR_METADATA } from '../lib/constants';
-import { toTitleCase, formatPercent } from '../lib/utils';
+import { toTitleCase } from '../lib/utils';
 import { EnrichedStateData } from '../types/data';
-import {
-  Map as MapIcon,
-  Layers,
-  Info,
-  ChevronRight,
-  ExternalLink,
-  ZoomIn,
-  ZoomOut,
-  RotateCcw,
-} from 'lucide-react';
+import { getStateForGeoJsonName } from '../lib/geoStateMapping';
+import { ExternalLink } from 'lucide-react';
+import { formatGovernancePercent, formatServiceAvailability } from '../lib/governanceDisplay';
 import { Link } from 'react-router-dom';
 
-/**
- * Explicit dictionary mapping GeoJSON ST_NM property to CSV State_UT identifier.
- */
-const GEOJSON_TO_CSV_NAME: Record<string, string> = {
-  'Andaman & Nicobar': 'ANDAMAN & NICOBAR ISLANDS',
-  'Andhra Pradesh': 'ANDHRA PRADESH',
-  'Arunachal Pradesh': 'ARUNACHAL PRADESH',
-  'Assam': 'ASSAM',
-  'Bihar': 'BIHAR',
-  'Chandigarh': 'CHANDIGARH',
-  'Chhattisgarh': 'CHHATTISGARH',
-  'Dadra and Nagar Haveli and Daman and Diu': 'DADRA AND NAGAR HAVELI AND DAMAN AND DIU',
-  'Delhi': 'DELHI',
-  'Goa': 'GOA',
-  'Gujarat': 'GUJARAT',
-  'Haryana': 'HARYANA',
-  'Himachal Pradesh': 'HIMACHAL PRADESH',
-  'Jammu & Kashmir': 'JAMMU & KASHMIR',
-  'Jharkhand': 'JHARKHAND',
-  'Karnataka': 'KARNATAKA',
-  'Kerala': 'KERALA',
-  'Ladakh': 'LADAKH',
-  'Lakshadweep': 'LAKSHADWEEP',
-  'Madhya Pradesh': 'MADHYA PRADESH',
-  'Maharashtra': 'MAHARASHTRA',
-  'Manipur': 'MANIPUR',
-  'Meghalaya': 'MEGHALAYA',
-  'Mizoram': 'MIZORAM',
-  'Nagaland': 'NAGALAND',
-  'Odisha': 'ODISHA',
-  'Puducherry': 'PUDUCHERRY',
-  'Punjab': 'PUNJAB',
-  'Rajasthan': 'RAJASTHAN',
-  'Sikkim': 'SIKKIM',
-  'Tamil Nadu': 'TAMIL NADU',
-  'Telangana': 'TELANGANA',
-  'Tripura': 'TRIPURA',
-  'Uttar Pradesh': 'UTTAR PRADESH',
-  'Uttarakhand': 'UTTARAKHAND',
-  'West Bengal': 'WEST BENGAL',
-};
 const MAP_CENTER: [number, number] = [22.5, 82.5];
 const MAP_ZOOM = 4.4;
 
@@ -144,8 +96,7 @@ export default function GovernanceMap() {
     }
 
     const geoName = feature.properties.ST_NM;
-    const csvName = GEOJSON_TO_CSV_NAME[geoName];
-    const stateObj = csvName ? stateLookup.get(csvName) : undefined;
+    const stateObj = getStateForGeoJsonName(geoName, stateLookup);
 
     if (!stateObj) {
       return {
@@ -181,19 +132,12 @@ export default function GovernanceMap() {
   // Interaction handlers for each State/UT polygon
   const onEachFeature = (feature: Feature<Geometry, { ST_NM: string }>, layer: Layer) => {
     const geoName = feature.properties.ST_NM;
-    const csvName = GEOJSON_TO_CSV_NAME[geoName];
-    const stateObj = csvName ? stateLookup.get(csvName) : undefined;
+    const stateObj = getStateForGeoJsonName(geoName, stateLookup);
 
     if (stateObj) {
       const clusterConfig = CLUSTER_CONFIG[stateObj.Cluster as keyof typeof CLUSTER_CONFIG];
-      const mapDig =
-        stateObj.Map_Digitization_Pct !== null
-          ? `${stateObj.Map_Digitization_Pct.toFixed(1)}%`
-          : 'N/A';
-      const rorComp =
-        stateObj.RoR_Computerization_Pct !== null
-          ? `${stateObj.RoR_Computerization_Pct.toFixed(1)}%`
-          : 'N/A';
+      const mapDig = formatGovernancePercent(stateObj.Map_Digitization_Pct);
+      const rorComp = formatGovernancePercent(stateObj.RoR_Computerization_Pct);
 
       // Bind hover tooltip
       layer.bindTooltip(
@@ -227,15 +171,14 @@ export default function GovernanceMap() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-[var(--color-border)]">
         <div>
-          <h1 className="page-title">National Land Governance Map</h1>
           <p className="page-subtitle">
-            Authentic State/UT boundary choropleth colored by {selected.config.model} (K={selected.config.k}) cluster assignments.
+            State boundaries colored by {selected.config.model} (K={selected.config.k}) cluster assignments.
           </p>
         </div>
         {/* Cluster Filter Controls */}
         <div className="flex items-center gap-2 flex-wrap">
           <span className="text-xs font-semibold text-[var(--color-text-secondary)]">Show:</span>
-          <div className="flex gap-1.5">
+          <div className="flex flex-wrap gap-1.5">
             <button
               onClick={() => setFilterCluster('all')}
               className={`px-3 py-1 text-xs rounded-md font-medium transition-colors ${
@@ -328,7 +271,7 @@ export default function GovernanceMap() {
                     <div className="flex justify-between text-xs mb-1">
                       <span className="text-[var(--color-text-secondary)]">Cadastral Map Digitization</span>
                       <span className="font-semibold text-[var(--color-text-primary)]">
-                        {activeState.Map_Digitization_Pct !== null ? `${activeState.Map_Digitization_Pct.toFixed(1)}%` : 'N/A'}
+                        {formatGovernancePercent(activeState.Map_Digitization_Pct)}
                       </span>
                     </div>
                     {activeState.Map_Digitization_Pct !== null && (
@@ -345,7 +288,7 @@ export default function GovernanceMap() {
                     <div className="flex justify-between text-xs mb-1">
                       <span className="text-[var(--color-text-secondary)]">Map-RoR Linkage</span>
                       <span className="font-semibold text-[var(--color-text-primary)]">
-                        {activeState.Map_RoR_Linkage_Pct !== null ? `${activeState.Map_RoR_Linkage_Pct.toFixed(1)}%` : 'N/A'}
+                        {formatGovernancePercent(activeState.Map_RoR_Linkage_Pct)}
                       </span>
                     </div>
                     {activeState.Map_RoR_Linkage_Pct !== null && (
@@ -362,7 +305,7 @@ export default function GovernanceMap() {
                     <div className="flex justify-between text-xs mb-1">
                       <span className="text-[var(--color-text-secondary)]">RoR Computerization</span>
                       <span className="font-semibold text-[var(--color-text-primary)]">
-                        {activeState.RoR_Computerization_Pct !== null ? `${activeState.RoR_Computerization_Pct.toFixed(1)}%` : 'N/A'}
+                        {formatGovernancePercent(activeState.RoR_Computerization_Pct)}
                       </span>
                     </div>
                     {activeState.RoR_Computerization_Pct !== null && (
@@ -379,7 +322,7 @@ export default function GovernanceMap() {
                     <div className="flex justify-between text-xs mb-1">
                       <span className="text-[var(--color-text-secondary)]">Land Parcel ULPIN Coverage</span>
                       <span className="font-semibold text-[var(--color-text-primary)]">
-                        {activeState.Land_Parcel_ULPIN_Pct !== null ? `${activeState.Land_Parcel_ULPIN_Pct.toFixed(1)}%` : 'N/A'}
+                        {formatGovernancePercent(activeState.Land_Parcel_ULPIN_Pct)}
                       </span>
                     </div>
                     {activeState.Land_Parcel_ULPIN_Pct !== null && (
@@ -396,7 +339,7 @@ export default function GovernanceMap() {
                     <div className="flex justify-between text-xs mb-1">
                       <span className="text-[var(--color-text-secondary)]">Modern Record Room (MRR)</span>
                       <span className="font-semibold text-[var(--color-text-primary)]">
-                        {activeState.MRR_Completion_Pct_Total !== null ? `${activeState.MRR_Completion_Pct_Total.toFixed(1)}%` : 'N/A'}
+                        {formatGovernancePercent(activeState.MRR_Completion_Pct_Total)}
                       </span>
                     </div>
                     {activeState.MRR_Completion_Pct_Total !== null && (
@@ -418,26 +361,26 @@ export default function GovernanceMap() {
                   <div className="grid grid-cols-2 gap-2 text-xs">
                     <div className="p-2 rounded bg-[var(--color-surface-secondary)] border border-[var(--color-border)]">
                       <span className="text-[10px] text-[var(--color-text-tertiary)] block">RoR Download</span>
-                      <span className={`font-semibold ${activeState.Online_RoR_Download === 1 ? 'text-emerald-600' : activeState.Online_RoR_Download === 0 ? 'text-slate-400' : 'text-slate-400 italic'}`}>
-                        {activeState.Online_RoR_Download === 1 ? 'Available' : activeState.Online_RoR_Download === 0 ? 'Unavailable' : 'N/A'}
+                      <span className={`font-semibold ${activeState.Online_RoR_Download === 1 ? 'text-emerald-600' : 'text-[var(--color-text-tertiary)] italic'}`}>
+                        {formatServiceAvailability(activeState.Online_RoR_Download)}
                       </span>
                     </div>
                     <div className="p-2 rounded bg-[var(--color-surface-secondary)] border border-[var(--color-border)]">
                       <span className="text-[10px] text-[var(--color-text-tertiary)] block">Signed RoR</span>
-                      <span className={`font-semibold ${activeState.Digitally_Signed_RoR === 1 ? 'text-emerald-600' : activeState.Digitally_Signed_RoR === 0 ? 'text-slate-400' : 'text-slate-400 italic'}`}>
-                        {activeState.Digitally_Signed_RoR === 1 ? 'Available' : activeState.Digitally_Signed_RoR === 0 ? 'Unavailable' : 'N/A'}
+                      <span className={`font-semibold ${activeState.Digitally_Signed_RoR === 1 ? 'text-emerald-600' : 'text-[var(--color-text-tertiary)] italic'}`}>
+                        {formatServiceAvailability(activeState.Digitally_Signed_RoR)}
                       </span>
                     </div>
                     <div className="p-2 rounded bg-[var(--color-surface-secondary)] border border-[var(--color-border)]">
                       <span className="text-[10px] text-[var(--color-text-tertiary)] block">Online Mutation</span>
-                      <span className={`font-semibold ${activeState.Online_Mutation_Application === 1 ? 'text-emerald-600' : activeState.Online_Mutation_Application === 0 ? 'text-slate-400' : 'text-slate-400 italic'}`}>
-                        {activeState.Online_Mutation_Application === 1 ? 'Available' : activeState.Online_Mutation_Application === 0 ? 'Unavailable' : 'N/A'}
+                      <span className={`font-semibold ${activeState.Online_Mutation_Application === 1 ? 'text-emerald-600' : 'text-[var(--color-text-tertiary)] italic'}`}>
+                        {formatServiceAvailability(activeState.Online_Mutation_Application)}
                       </span>
                     </div>
                     <div className="p-2 rounded bg-[var(--color-surface-secondary)] border border-[var(--color-border)]">
                       <span className="text-[10px] text-[var(--color-text-tertiary)] block">Auto Mutation</span>
-                      <span className={`font-semibold ${activeState.Auto_Triggered_Mutation === 1 ? 'text-emerald-600' : activeState.Auto_Triggered_Mutation === 0 ? 'text-slate-400' : 'text-slate-400 italic'}`}>
-                        {activeState.Auto_Triggered_Mutation === 1 ? 'Available' : activeState.Auto_Triggered_Mutation === 0 ? 'Unavailable' : 'N/A'}
+                      <span className={`font-semibold ${activeState.Auto_Triggered_Mutation === 1 ? 'text-emerald-600' : 'text-[var(--color-text-tertiary)] italic'}`}>
+                        {formatServiceAvailability(activeState.Auto_Triggered_Mutation)}
                       </span>
                     </div>
                   </div>

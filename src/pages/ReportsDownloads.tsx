@@ -93,7 +93,7 @@ export default function ReportsDownloads() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-[var(--color-border)]">
         <div>
-          <h1 className="page-title">Reports, Datasets & Visual Exports</h1>
+          <h2 className="page-title">Reports, Datasets & Visual Exports</h2>
           <p className="page-subtitle">
             Download raw CSV datasets, analytical matrices, high-resolution figures, and authentic spatial boundaries.
           </p>
